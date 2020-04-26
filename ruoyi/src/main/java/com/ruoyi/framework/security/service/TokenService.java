@@ -126,6 +126,11 @@ public class TokenService
         String token = IdUtils.fastUUID();
         loginUser.setToken(token);
         setUserAgent(loginUser);
+        //# 开启踢出之前登录的用户开关
+        if (this.isKickout()) {
+            String oldusertoken = redisCache.getCacheObject(Constants.LOGIN_TOKEN_KEY + loginUser.getUsername());
+            this.delLoginUser(oldusertoken);
+        }
         refreshToken(loginUser);
 
         Map<String, Object> claims = new HashMap<>();
@@ -161,6 +166,7 @@ public class TokenService
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
         redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+        redisCache.setCacheObject(Constants.LOGIN_TOKEN_KEY+loginUser.getUsername(), loginUser.getToken(), expireTime, TimeUnit.MINUTES);
     }
     
     /**
