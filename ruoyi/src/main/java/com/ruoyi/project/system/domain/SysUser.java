@@ -119,6 +119,13 @@ public class SysUser extends BaseEntity
 
     public boolean isAdmin()
     {
+        if (this.roles != null) {
+            for (SysRole role : this.roles) {
+                if (role.isAdmin()) {
+                    return true;
+                }
+            }
+        }
         return isAdmin(this.userId);
     }
 

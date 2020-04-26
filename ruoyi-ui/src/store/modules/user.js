@@ -7,7 +7,8 @@ const user = {
     name: '',
     avatar: '',
     roles: [],
-    permissions: []
+    permissions: [],
+    checkpasswordexpird:null
   },
 
   mutations: {
@@ -52,6 +53,16 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(res => {
           const user = res.user
+          if(res.isPasswordexpired){
+            let diffday = (new Date() - new Date(user.updateTime)) / (res.passwordexpiredtime);
+            if (diffday >= 15){
+              Message({
+                message:"您的密碼已經過期,請及時修改",
+                type: 'warning',
+                duration: 5 * 1000
+              })
+            }
+          }
           const avatar = user.avatar == "" ? require("@/assets/image/profile.jpg") : process.env.VUE_APP_BASE_API + user.avatar;
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)

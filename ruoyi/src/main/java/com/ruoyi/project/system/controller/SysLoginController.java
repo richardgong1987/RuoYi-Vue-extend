@@ -77,6 +77,8 @@ public class SysLoginController
         ajax.put("user", user);
         ajax.put("roles", roles);
         ajax.put("permissions", permissions);
+        ajax.put("isPasswordexpired",tokenService.isPasswordexpired());
+        ajax.put("passwordexpiredtime",tokenService.getPasswordexpiredtime());
         return ajax;
     }
 

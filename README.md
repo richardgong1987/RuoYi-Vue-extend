@@ -8,7 +8,6 @@ RuoYi-Vue-extend为[RouYi-Vue](https://gitee.com/y_project/RuoYi-Vue)的扩展�
 * 新增google authenticator验证并配置开关
 * 引入lombok插件,简化javabean代码
 * 新增验证码开关
-* 新增角色有上下级树形模式
 * 增加15天密码过期机制(除管理员外,如果不更新密码,就会禁止登陆)
 * 增加CAS单用户登录（一个账号只能一个客户端登录）开关
 

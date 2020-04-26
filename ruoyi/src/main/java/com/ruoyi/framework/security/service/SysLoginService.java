@@ -2,7 +2,7 @@ package com.ruoyi.framework.security.service;
 
 import javax.annotation.Resource;
 
-import com.ruoyi.common.exception.user.GoogleAuthCodeException;
+import com.ruoyi.common.exception.user.*;
 import com.ruoyi.common.utils.GoogleAuthenticator;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.project.system.domain.SysUser;
@@ -14,14 +14,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.exception.CustomException;
-import com.ruoyi.common.exception.user.CaptchaException;
-import com.ruoyi.common.exception.user.CaptchaExpireException;
-import com.ruoyi.common.exception.user.UserPasswordNotMatchException;
 import com.ruoyi.common.utils.MessageUtils;
 import com.ruoyi.framework.manager.AsyncManager;
 import com.ruoyi.framework.manager.factory.AsyncFactory;
 import com.ruoyi.framework.redis.RedisCache;
 import com.ruoyi.framework.security.LoginUser;
+
+import java.util.Date;
 
 /**
  * 登录校验方法
@@ -73,9 +72,21 @@ public class SysLoginService
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            LoginUser principal = (LoginUser) authentication.getPrincipal();
+            SysUser user = principal.getUser();
+//            是否15天密码过期开关
+            if (!user.isAdmin()) {
+                if (tokenService.isPasswordexpired()) {
+                    long now = new Date().getTime();
+                    long updateTime = user.getUpdateTime().getTime();
+                    long diffday = (now - updateTime) / (tokenService.getPasswordexpiredtime());
+                    if (diffday >= 15) {
+                        throw new PaswordExpiredException();
+                    }
+                }
+            }
+//            是否启动google身份验证
             if (tokenService.isGoogleAuthenticator()) {
-                LoginUser principal = (LoginUser) authentication.getPrincipal();
-                SysUser user = principal.getUser();
                 String googlekey = user.getGooglekey();
                 if (StringUtils.isNotEmpty(googlecode)) {
                     String totpCode = GoogleAuthenticator.getTOTPCode(googlekey);
