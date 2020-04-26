@@ -1,18 +1,47 @@
 ## 平台简介
 
-一直想做一款后台管理系统，看了很多优秀的开源项目但是发现没有合适的。于是利用空闲休息时间开始自己写了一套后台系统。如此有了若依。她可以用于所有的Web应用程序，如网站管理后台，网站会员中心，CMS，CRM，OA。所有前端后台代码封装过后十分精简易上手，出错概率低。同时支持移动客户端访问。系统会陆续更新一些实用功能。
-
-性别男，若依是给还没有出生女儿取的名字（寓意：你若不离不弃，我必生死相依）
+RuoYi-Vue-extend为[RouYi-Vue](https://gitee.com/y_project/RuoYi-Vue)的扩展版
 
 参考后台模板[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 
-> 阿里云服务器89元/年，双12年末特惠，爆款产品限时1折 ：[点我进入](https://www.aliyun.com/minisite/goods?userCode=brki8iof&share_source=copy_link)
+## 扩展版新增的功能
+* 新增google authenticator验证并配置开关
+* 引入lombok插件,简化javabean代码
+* 新增验证码开关
+* 新增角色有上下级树形模式
+* 增加15天密码过期机制(除管理员外,如果不更新密码,就会禁止登陆)
+* 增加CAS单用户登录（一个账号只能一个客户端登录）开关
 
-> 如需不分离应用，请移步 [RuoYi](https://gitee.com/y_project/RuoYi)  `(保持同步更新)`，如需其他版本，请移步 [项目扩展](http://doc.ruoyi.vip/ruoyi/document/xmkz.html)  `(不定时更新)`
+## 修改的功能
 
-> 阿里云通用云产品1888优惠券 ：[点我领取](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=brki8iof)&nbsp;&nbsp;&nbsp;&nbsp;腾讯云通用云产品2860优惠券 ：[点我领取](https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console)&nbsp;&nbsp;`(仅限新用户)`
+* 代码生成功能加入lombok. 删除掉getter,getter, toString的实现,并,格式化代码
 
-> 阿里云Hi拼购 限量爆款 低至199元/年 [点我进入](https://www.aliyun.com/acts/hi-group-buying?userCode=brki8iof)&nbsp;&nbsp;`(仅限新用户)`
+## bug修复:
+ 
+
+## 本项目特点说明:
+* 1.关于集群
+
+本项目使用spring-spring-security-jwt进行认证受权, 所以对集群有天生的支持.
+
+* 2.关于微服务
+
+本项目可以无缝切换到微服务模式
+  
+### 注意事项:
+* 开启的功能权限倒金字塔受权模式时界面的变化
+
+1.在添加界面,不显示功能菜单选择.菜单功能选择要在修改时才出现,这是为了实现菜单继承
+
+2.在修改界面,不能修改上级角色
+
+ 
+* 默认谷歌密钥
+```shell script
+SWYKZ6EJWR3Y5XVHX5HZEHJJEEK7HIQZ
+```
+如何没用过谷歌密钥的同学,去查找一下相关的资料学习一下
+
 
 ## 内置功能
 
@@ -35,7 +64,6 @@
 17. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
 ## 在线体验
 > admin/admin123  
-> 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
 
 演示地址：http://vue.ruoyi.vip  
 
@@ -78,7 +106,13 @@
     </tr>
 </table>
 
+[idea插件推荐](ideaplugin-recommand.md)
 
-## 若依前后端分离交流群
 
-QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC)点击按钮入群。
+本项目技术交流可以联系
+
+
+```html
+QQ: 909253305
+微信: live1520
+```

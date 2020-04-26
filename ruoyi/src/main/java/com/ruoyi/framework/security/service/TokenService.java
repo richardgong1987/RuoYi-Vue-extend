@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import javax.servlet.http.HttpServletRequest;
+
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  * @author ruoyi
  */
 @Component
+@Data
 public class TokenService
 {
     // 令牌自定义标识
@@ -39,6 +42,25 @@ public class TokenService
     // 令牌有效期（默认30分钟）
     @Value("${token.expireTime}")
     private int expireTime;
+
+    // 是否启动google身份验证
+    @Value("${token.googleAuthenticator}")
+    private boolean googleAuthenticator;
+
+    // 验证码开关
+    @Value("${token.captchaEnabled}")
+    private boolean captchaEnabled;
+
+    //是否15天密码过期开关
+    @Value("${token.passwordexpired}")
+    private boolean passwordexpired;
+
+    // # 同一个用户最大会话数，比如2的意思是同一个账号允许最多同时两个人登录（默认-1不限制）
+    @Value("${token.kickout}")
+    private boolean kickout;
+    //密码过期时间
+    @Value("${token.passwordexpiredtime}")
+    private long passwordexpiredtime;
 
     protected static final long MILLIS_SECOND = 1000;
 

@@ -61,7 +61,13 @@ spring:
     # 端口，默认为6379
     port: 6379
     # 密码
-    password: 
+    password: guess_guess_101
+    cluster:
+      max-redirects: 6
+      nodes:
+        - localhost:7001
+        - localhost:7002
+        - localhost:7003
     # 连接超时时间
     timeout: 10s
     lettuce:
@@ -83,7 +89,17 @@ token:
     secret: abcdefghijklmnopqrstuvwxyz
     # 令牌有效期（默认30分钟）
     expireTime: 30
-  
+  # 是否启动google身份验证
+    googleAuthenticator: false
+  # 验证码开关
+    captchaEnabled: false
+  #    是否天密码过期开关
+    passwordexpired: true
+  #  密码过期时间(毫秒),这里设置15天
+    passwordexpiredtime: 1296000000
+  # 开启踢出之前登录的用户开关
+    kickout: true
+
 # MyBatis配置
 mybatis:
     # 搜索指定包别名

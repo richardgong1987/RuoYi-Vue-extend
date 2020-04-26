@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,6 +21,7 @@ import com.ruoyi.framework.web.domain.BaseEntity;
  * 
  * @author ruoyi
  */
+@Data
 public class SysUser extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -46,6 +49,9 @@ public class SysUser extends BaseEntity
     /** 手机号码 */
     @Excel(name = "手机号码")
     private String phonenumber;
+    /** 谷歌密钥 */
+    @Excel(name = "googlekey")
+    private String googlekey;
 
     /** 用户性别 */
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
