@@ -2,6 +2,8 @@ package com.ruoyi.framework.security;
 
 import java.util.Collection;
 import java.util.Set;
+
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,6 +14,7 @@ import com.ruoyi.project.system.domain.SysUser;
  * 
  * @author ruoyi
  */
+@Data
 public class LoginUser implements UserDetails
 {
     private static final long serialVersionUID = 1L;
@@ -50,7 +53,6 @@ public class LoginUser implements UserDetails
      * 操作系统
      */
     private String os;
-
     /**
      * 权限列表
      */

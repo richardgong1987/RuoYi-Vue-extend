@@ -244,12 +244,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!--google GoogleAuthenticator 相关依赖-->
-		<dependency>
-			<groupId>de.taimos</groupId>
-			<artifactId>totp</artifactId>
-			<version>1.0</version>
-		</dependency>
 		<!-- lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

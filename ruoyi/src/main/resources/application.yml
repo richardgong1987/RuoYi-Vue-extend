@@ -90,7 +90,7 @@ token:
     # 令牌有效期（默认30分钟）
     expireTime: 30
   # 是否启动google身份验证
-    googleAuthenticator: false
+    googleAuthenticator: true
   # 验证码开关
     captchaEnabled: false
   #    是否天密码过期开关

@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import com.ruoyi.common.exception.user.*;
 import com.ruoyi.common.utils.GoogleAuthenticator;
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.project.common.GoogleCodeService;
 import com.ruoyi.project.system.domain.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -35,7 +36,8 @@ public class SysLoginService
 
     @Resource
     private AuthenticationManager authenticationManager;
-
+    @Autowired
+    GoogleCodeService googleCodeService;
     @Autowired
     private RedisCache redisCache;
 
@@ -87,15 +89,7 @@ public class SysLoginService
             }
 //            是否启动google身份验证
             if (tokenService.isGoogleAuthenticator()) {
-                String googlekey = user.getGooglekey();
-                if (StringUtils.isNotEmpty(googlecode)) {
-                    String totpCode = GoogleAuthenticator.getTOTPCode(googlekey);
-                    if (!googlecode.equals(totpCode)) {
-                        throw new GoogleAuthCodeException();
-                    }
-                } else {
-                    throw new GoogleAuthCodeException();
-                }
+                googleCodeService.verifyGooglecode(user,googlecode);
             }
         }
         catch (Exception e)

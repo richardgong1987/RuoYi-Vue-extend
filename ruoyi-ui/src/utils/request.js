@@ -14,6 +14,7 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   config => {
+    config.headers['clientimestamp'] = Date.now();
     if (getToken()) {
       config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     }
