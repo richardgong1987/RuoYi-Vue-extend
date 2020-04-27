@@ -1,9 +1,12 @@
 package com.ruoyi.framework.config;
 
+import com.ruoyi.framework.security.service.MyAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     /**
      * 自定义用户认证逻辑
      */
+    @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
     
@@ -131,5 +135,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.authenticationProvider(authenticationProvider());
+    }
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        AuthenticationProvider authenticationProvider = new MyAuthenticationProvider();
+        return authenticationProvider;
     }
 }

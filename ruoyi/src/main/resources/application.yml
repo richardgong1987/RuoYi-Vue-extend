@@ -90,7 +90,7 @@ token:
     # 令牌有效期（默认30分钟）
     expireTime: 30
   # 是否启动google身份验证
-    googleAuthenticator: true
+    googleAuthenticator: false
   # 验证码开关
     captchaEnabled: false
   #    是否天密码过期开关
@@ -99,7 +99,8 @@ token:
     passwordexpiredtime: 1296000000
   # 开启踢出之前登录的用户开关
     kickout: true
-
+    # 密码错误{maxRetryCount}次锁定10分钟
+    maxRetryCount: 3
 # MyBatis配置
 mybatis:
     # 搜索指定包别名

@@ -139,7 +139,6 @@
           <el-table-column label="用户昵称" align="center" prop="nickName" :show-overflow-tooltip="true" />
           <el-table-column label="部门" align="center" prop="dept.deptName" :show-overflow-tooltip="true" />
           <el-table-column label="手机号码" align="center" prop="phonenumber" width="120" />
-          <el-table-column label="google key" align="center" prop="googlekey"  />
           <el-table-column label="状态" align="center">
             <template slot-scope="scope">
               <el-switch
@@ -215,11 +214,6 @@
           <el-col :span="12">
             <el-form-item label="手机号码" prop="phonenumber">
               <el-input v-model="form.phonenumber" placeholder="请输入手机号码" maxlength="11" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="googlekey" prop="googlekey">
-              <el-input v-model="form.googlekey" placeholder="googlekey" maxlength="11" />
             </el-form-item>
           </el-col>
           <el-col :span="12">

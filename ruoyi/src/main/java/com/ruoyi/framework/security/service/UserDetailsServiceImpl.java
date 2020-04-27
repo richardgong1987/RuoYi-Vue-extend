@@ -19,7 +19,7 @@ import com.ruoyi.project.system.service.ISysUserService;
  *
  * @author ruoyi
  */
-@Service
+@Service()
 public class UserDetailsServiceImpl implements UserDetailsService
 {
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);

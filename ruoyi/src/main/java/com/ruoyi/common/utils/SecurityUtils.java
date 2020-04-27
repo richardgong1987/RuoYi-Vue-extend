@@ -9,7 +9,7 @@ import com.ruoyi.framework.security.LoginUser;
 
 /**
  * 安全服务工具类
- * 
+ *
  * @author ruoyi
  */
 public class SecurityUtils
@@ -60,8 +60,9 @@ public class SecurityUtils
      */
     public static String encryptPassword(String password)
     {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+        return PHPpassword.PHPpasswordHash(password);
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        return passwordEncoder.encode(password);
     }
 
     /**
@@ -73,13 +74,14 @@ public class SecurityUtils
      */
     public static boolean matchesPassword(String rawPassword, String encodedPassword)
     {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.matches(rawPassword, encodedPassword);
+        return PHPpassword.PHPpasswordVerify(rawPassword,encodedPassword);
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
     /**
      * 是否为管理员
-     * 
+     *
      * @param userId 用户ID
      * @return 结果
      */

@@ -250,6 +250,12 @@
 			<artifactId>lombok</artifactId>
 			<version>${lombok.version}</version>
 		</dependency>
+		<!--用于PHP密码兼容PHPpasswordHash和PHPpasswordVerify方法-->
+		<dependency>
+			<groupId>at.favre.lib</groupId>
+			<artifactId>bcrypt</artifactId>
+			<version>0.9.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -18,11 +18,7 @@
           <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
         </el-input>
       </el-form-item>
-      <el-form-item v-if="isGoogleAuthenticatorEnabled">
-        <el-input v-model="loginForm.googlecode" type="number" placeholder="google code"  @keyup.enter.native="handleLogin">
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="code" v-if="isCaptchaEnabled">
+      <el-form-item prop="code">
         <el-input
           v-model="loginForm.code"
           auto-complete="off"
@@ -66,8 +62,6 @@ export default {
   name: "Login",
   data() {
     return {
-      isGoogleAuthenticatorEnabled:false,
-      isCaptchaEnabled:false,
       codeUrl: "",
       cookiePassword: "",
       loginForm: {
@@ -75,8 +69,7 @@ export default {
         password: "admin123",
         rememberMe: false,
         code: "",
-        uuid: "",
-        googlecode: ""
+        uuid: ""
       },
       loginRules: {
         username: [
@@ -106,8 +99,6 @@ export default {
   methods: {
     getCode() {
       getCodeImg().then(res => {
-        this.isGoogleAuthenticatorEnabled = res.isGoogleAuthenticatorEnabled;
-        this.isCaptchaEnabled = res.isCaptchaEnabled;
         this.codeUrl = "data:image/gif;base64," + res.img;
         this.loginForm.uuid = res.uuid;
       });
