@@ -1,46 +1,14 @@
 ## 平台简介
 
-RuoYi-Vue-extend为[RouYi-Vue](https://gitee.com/y_project/RuoYi-Vue)的扩展版
-
-参考后台模板[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
-
-## 扩展版新增的功能
-* 新增google authenticator验证并配置开关
-* 引入lombok插件,简化javabean代码
-* 新增验证码开关
-* 增加15天密码过期机制(除管理员外,如果不更新密码,就会禁止登陆)
-* 增加CAS单用户登录（一个账号只能一个客户端登录）开关
-
-## 修改的功能
-
-* 代码生成功能加入lombok. 删除掉getter,getter, toString的实现,并,格式化代码
-
-## bug修复:
- 
-
-## 本项目特点说明:
-* 1.关于集群
-
-本项目使用spring-spring-security-jwt进行认证受权, 所以对集群有天生的支持.
-
-* 2.关于微服务
-
-本项目可以无缝切换到微服务模式
-  
-### 注意事项:
-* 开启的功能权限倒金字塔受权模式时界面的变化
-
-1.在添加界面,不显示功能菜单选择.菜单功能选择要在修改时才出现,这是为了实现菜单继承
-
-2.在修改界面,不能修改上级角色
-
- 
-* 默认谷歌密钥
-```shell script
-SWYKZ6EJWR3Y5XVHX5HZEHJJEEK7HIQZ
-```
-如何没用过谷歌密钥的同学,去查找一下相关的资料学习一下
-
+* 前端采用Vue、Element UI。
+* 后端采用Spring Boot、Spring Security、Redis & Jwt。
+* 权限认证使用Jwt，支持多终端认证系统。
+* 支持加载动态权限菜单，多方式轻松权限控制。
+* 高效率开发，使用代码生成器可以一键生成前后端代码。
+* 提供了一个Oracle版本[RuoYi-Vue-Oracle](https://github.com/yangzongzhuan/RuoYi-Vue-Oracle)，保持同步更新。
+* 感谢[Vue-Element-Admin](https://github.com/PanJiaChen/vue-element-admin)，[eladmin-web](https://gitee.com/elunez/eladmin-web?_from=gitee_search)。
+* 不分离版本，请移步[RuoYi](https://gitee.com/y_project/RuoYi)，微服务版本，请移步[RuoYi-Cloud](https://gitee.com/y_project/RuoYi-Cloud)
+* 阿里云优惠券：[点我进入](https://www.aliyun.com/minisite/goods?userCode=brki8iof&share_source=copy_link)，腾讯云优惠券：[点我领取](https://cloud.tencent.com/redirect.php?redirect=1025&cps_key=198c8df2ed259157187173bc7f4f32fd&from=console)&nbsp;&nbsp;
 
 ## 内置功能
 
@@ -61,11 +29,13 @@ SWYKZ6EJWR3Y5XVHX5HZEHJJEEK7HIQZ
 15. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
 16. 在线构建器：拖动表单元素生成相应的HTML代码。
 17. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
+
 ## 在线体验
-> admin/admin123  
+
+- admin/admin123  
+- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
 
 演示地址：http://vue.ruoyi.vip  
-
 文档地址：http://doc.ruoyi.vip
 
 ## 演示图
@@ -105,13 +75,7 @@ SWYKZ6EJWR3Y5XVHX5HZEHJJEEK7HIQZ
     </tr>
 </table>
 
-[idea插件推荐](ideaplugin-recommand.md)
 
+## 若依前后端分离交流群
 
-本项目技术交流可以联系
-
-
-```html
-QQ: 909253305
-微信: live1520
-```
+QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) 点击按钮入群。
