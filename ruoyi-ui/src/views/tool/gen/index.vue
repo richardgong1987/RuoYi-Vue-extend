@@ -138,6 +138,13 @@
             @click="handleGenTable(scope.row)"
             v-hasPermi="['tool:gen:code']"
           >生成代码</el-button>
+          <el-button
+            type="text"
+            size="small"
+            icon="el-icon-download"
+            @click="handleGenTable(scope.row,true)"
+            v-hasPermi="['tool:gen:code']"
+          >直接写入到项目</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -235,13 +242,17 @@ export default {
       this.getList();
     },
     /** 生成代码操作 */
-    handleGenTable(row) {
+    handleGenTable(row,isInsertproject=false) {
       const tableNames = row.tableName || this.tableNames;
       if (tableNames == "") {
         this.msgError("请选择要生成的数据");
         return;
       }
-      downLoadZip("/tool/gen/batchGenCode?tables=" + tableNames, "ruoyi");
+      if (isInsertproject) {
+        downLoadZip(`/tool/gen/batchGenCodewrite?tables=${tableNames}`, "ruoyi");
+      } else {
+        downLoadZip(`/tool/gen/batchGenCode?tables=${tableNames}`, "ruoyi");
+      }
     },
     /** 打开导入表弹窗 */
     openImportTable() {

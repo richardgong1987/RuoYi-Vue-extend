@@ -1,22 +1,5 @@
 package com.ruoyi.project.tool.gen.service;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ruoyi.common.constant.Constants;
@@ -31,6 +14,27 @@ import com.ruoyi.project.tool.gen.mapper.GenTableMapper;
 import com.ruoyi.project.tool.gen.util.GenUtils;
 import com.ruoyi.project.tool.gen.util.VelocityInitializer;
 import com.ruoyi.project.tool.gen.util.VelocityUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * 业务 服务层实现
@@ -209,7 +213,7 @@ public class GenTableServiceImpl implements IGenTableService
     {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
-        generatorCode(tableName, zip);
+        generatorCode(tableName, zip,false);
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
     }
@@ -221,13 +225,13 @@ public class GenTableServiceImpl implements IGenTableService
      * @return 数据
      */
     @Override
-    public byte[] generatorCode(String[] tableNames)
+    public byte[] generatorCode(String[] tableNames, boolean isInsertproject)
     {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         ZipOutputStream zip = new ZipOutputStream(outputStream);
         for (String tableName : tableNames)
         {
-            generatorCode(tableName, zip);
+            generatorCode(tableName, zip,isInsertproject);
         }
         IOUtils.closeQuietly(zip);
         return outputStream.toByteArray();
@@ -236,7 +240,7 @@ public class GenTableServiceImpl implements IGenTableService
     /**
      * 查询表信息并生成代码
      */
-    private void generatorCode(String tableName, ZipOutputStream zip)
+    private void generatorCode(String tableName, ZipOutputStream zip,boolean isInsertproject)
     {
         // 查询表信息
         GenTable table = genTableMapper.selectGenTableByName(tableName);
@@ -258,8 +262,12 @@ public class GenTableServiceImpl implements IGenTableService
             tpl.merge(context, sw);
             try
             {
+                String fileName = VelocityUtils.getFileName(template, table);
+                if (isInsertproject) {
+                    writeToSrc(sw, fileName);
+                }
                 // 添加到zip
-                zip.putNextEntry(new ZipEntry(VelocityUtils.getFileName(template, table)));
+                zip.putNextEntry(new ZipEntry(fileName));
                 IOUtils.write(sw.toString(), zip, Constants.UTF8);
                 IOUtils.closeQuietly(sw);
 				zip.flush();
@@ -337,5 +345,36 @@ public class GenTableServiceImpl implements IGenTableService
             genTable.setTreeParentCode(treeParentCode);
             genTable.setTreeName(treeName);
         }
+    }
+    /**
+     * 写进源码
+     * @param sw
+     * @param fileName
+     * @throws IOException
+     */
+    private void writeToSrc(StringWriter sw, String fileName) throws IOException {
+        boolean isjava = fileName.startsWith("main");
+        boolean isvue = fileName.startsWith("vue");
+        String userdir = System.getProperty("user.dir");
+        if(isjava){
+            String path = userdir +"/ruoyi/src/";
+            createCodeFiles(sw, fileName, path);
+        } else if(isvue){
+            String path = userdir +"/ruoyi-ui/src/";
+            createCodeFiles(sw, fileName.replaceFirst("vue/",""), path);
+        }
+    }
+    /**
+     * 批量写文件操作
+     * @param sw
+     * @param fileName
+     * @param path
+     * @throws IOException
+     */
+    private void createCodeFiles(StringWriter sw, String fileName, String path) throws IOException {
+        String fileAndDictory = path + fileName;
+        Path dictory = Paths.get(fileAndDictory);
+        Files.createDirectories(dictory.getParent());
+        Files.write(dictory, sw.toString().getBytes());
     }
 }

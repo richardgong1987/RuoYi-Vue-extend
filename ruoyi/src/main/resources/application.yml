@@ -61,13 +61,13 @@ spring:
     # 端口，默认为6379
     port: 6379
     # 密码
-    password: guess_guess_101
-    cluster:
-      max-redirects: 6
-      nodes:
-        - localhost:7001
-        - localhost:7002
-        - localhost:7003
+#    password: guess_guess_101
+#    cluster:
+#      max-redirects: 6
+#      nodes:
+#        - localhost:7001
+#        - localhost:7002
+#        - localhost:7003
     # 连接超时时间
     timeout: 10s
     lettuce:
