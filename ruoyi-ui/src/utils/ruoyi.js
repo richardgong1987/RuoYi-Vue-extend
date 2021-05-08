@@ -1,4 +1,4 @@
-/**
+﻿/**
  * 通用js方法封装处理
  * Copyright (c) 2019 ruoyi
  */
@@ -54,13 +54,17 @@ export function resetForm(refName) {
 }
 
 // 添加日期范围
-export function addDateRange(params, dateRange) {
+export function addDateRange(params, dateRange, propName) {
 	var search = params;
-	search.beginTime = "";
-	search.endTime = "";
+	search.params = {};
 	if (null != dateRange && '' != dateRange) {
-		search.beginTime = this.dateRange[0];
-		search.endTime = this.dateRange[1];
+		if (typeof (propName) === "undefined") {
+			search.params["beginTime"] = dateRange[0];
+			search.params["endTime"] = dateRange[1];
+		} else {
+			search.params["begin" + propName] = dateRange[0];
+			search.params["end" + propName] = dateRange[1];
+		}
 	}
 	return search;
 }
@@ -68,13 +72,28 @@ export function addDateRange(params, dateRange) {
 // 回显数据字典
 export function selectDictLabel(datas, value) {
 	var actions = [];
-	Object.keys(datas).map((key) => {
+	Object.keys(datas).some((key) => {
 		if (datas[key].dictValue == ('' + value)) {
 			actions.push(datas[key].dictLabel);
-			return false;
+			return true;
 		}
 	})
 	return actions.join('');
+}
+
+// 回显数据字典（字符串数组）
+export function selectDictLabels(datas, value, separator) {
+	var actions = [];
+	var currentSeparator = undefined === separator ? "," : separator;
+	var temp = value.split(currentSeparator);
+	Object.keys(value.split(currentSeparator)).some((val) => {
+		Object.keys(datas).some((key) => {
+			if (datas[key].dictValue == ('' + temp[val])) {
+				actions.push(datas[key].dictLabel + currentSeparator);
+			}
+		})
+	})
+	return actions.join('').substring(0, actions.join('').length - 1);
 }
 
 // 通用下载方法
@@ -98,10 +117,10 @@ export function sprintf(str) {
 
 // 转换字符串，undefined,null等转化为""
 export function praseStrEmpty(str) {
-    if (!str || str == "undefined" || str == "null") {
-        return "";
-    }
-    return str;
+	if (!str || str == "undefined" || str == "null") {
+		return "";
+	}
+	return str;
 }
 
 /**
@@ -110,25 +129,47 @@ export function praseStrEmpty(str) {
  * @param {*} id id字段 默认 'id'
  * @param {*} parentId 父节点字段 默认 'parentId'
  * @param {*} children 孩子节点字段 默认 'children'
- * @param {*} rootId 根Id 默认 0
  */
-export function handleTree(data, id, parentId, children, rootId) {
-	id = id || 'id'
-	parentId = parentId || 'parentId'
-	children = children || 'children'
-	rootId = rootId || 0
-	//对源数据深度克隆
-	const cloneData = JSON.parse(JSON.stringify(data))
-	//循环所有项
-	const treeData =  cloneData.filter(father => {
-	  let branchArr = cloneData.filter(child => {
-		//返回每一项的子级数组
-		return father[id] === child[parentId]
-	  });
-	  branchArr.length > 0 ? father.children = branchArr : '';
-	  //返回第一层
-	  return father[parentId] === rootId;
-	});
-	return treeData != '' ? treeData : data;
-  }
-  
+export function handleTree(data, id, parentId, children) {
+	let config = {
+		id: id || 'id',
+		parentId: parentId || 'parentId',
+		childrenList: children || 'children'
+	};
+
+	var childrenListMap = {};
+	var nodeIds = {};
+	var tree = [];
+
+	for (let d of data) {
+		let parentId = d[config.parentId];
+		if (childrenListMap[parentId] == null) {
+			childrenListMap[parentId] = [];
+		}
+		nodeIds[d[config.id]] = d;
+		childrenListMap[parentId].push(d);
+	}
+
+	for (let d of data) {
+		let parentId = d[config.parentId];
+		if (nodeIds[parentId] == null) {
+			tree.push(d);
+		}
+	}
+
+	for (let t of tree) {
+		adaptToChildrenList(t);
+	}
+
+	function adaptToChildrenList(o) {
+		if (childrenListMap[o[config.id]] !== null) {
+			o[config.childrenList] = childrenListMap[o[config.id]];
+		}
+		if (o[config.childrenList]) {
+			for (let c of o[config.childrenList]) {
+				adaptToChildrenList(c);
+			}
+		}
+	}
+	return tree;
+}
