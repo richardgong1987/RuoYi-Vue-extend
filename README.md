@@ -15,6 +15,13 @@
 
 ## 扩展版新增的功能
 * 新增google authenticator验证并配置开关
+
+```shell
+实现文档:
+
+https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81
+```
+  
 * 增加视图插入代码功能
 ## 修改的功能
 
