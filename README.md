@@ -1,4 +1,4 @@
-## 平台简介
+# 平台简介
 
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt。
@@ -9,22 +9,20 @@
 
 参考后台模板[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 
-## 扩展版新增的功能
-* 新增google authenticator验证并配置开关
+# 扩展版新增的功能
+## 新增google authenticator验证并配置开关
 
 [实现过程文档](https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81):
 ```shell
 https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81
 ```
   
-* 增加视图插入代码功能
-## 修改的功能
+## 增加视图插入代码功能
 
-* 代码生成功能加入lombok. 删除掉getter,getter, toString的实现,并,格式化代码
+## 代码生成功能加入lombok. 删除掉getter,getter, toString的实现,并,格式化代码
 
-## bug修复:
 
-## 内置功能
+# 内置功能
 
 1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
 2.  部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
