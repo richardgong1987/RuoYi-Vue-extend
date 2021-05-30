@@ -87,7 +87,15 @@ token:
     secret: abcdefghijklmnopqrstuvwxyz
     # 令牌有效期（默认30分钟）
     expireTime: 30
-  
+    # 是否打开google code
+    googleAuthenticator: false
+    # # 是否打开google code
+    captchaEnabled: false
+    # # 是否打开google code
+    passwordexpired: false
+    kickout: false
+    passwordexpiredtime: 3000
+
 # MyBatis配置
 mybatis:
     # 搜索指定包别名

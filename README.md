@@ -10,16 +10,26 @@
 参考后台模板[vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
 
 # 扩展版新增的功能
-## 新增google authenticator验证并配置开关
+### 1. 新增google authenticator验证并配置开关
 
 [实现过程文档](https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81):
 ```shell
 https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81
 ```
   
-## 增加视图插入代码功能
-
-## 代码生成功能加入lombok. 删除掉getter,getter, toString的实现,并,格式化代码
+### 2. 增加视图插入代码功能
+```shell
+https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/a5fde19595966e84d0acae0604c887fce52adab1
+```
+### 3.添加lombok到依赖
+```shell
+https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/1172329988f2abd47b458495add3d8d3ee166474
+```
+### 4. 升级jdk到jdk15
+### 5. 自定义密码匹配器 
+```shell
+https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/52efc8411499a453bcff90fb9eaa87de3b2ac06a
+```
 
 
 # 内置功能
