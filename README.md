@@ -25,7 +25,11 @@ https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/a5fde19595966e84d0
 ```shell
 https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/1172329988f2abd47b458495add3d8d3ee166474
 ```
-### 4. 升级jdk到jdk15
+### 4. 升级jdk8到jdk15 
+```shell
+https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/4331df41f9f658c0e1f0c6744959fa63c8272740
+```
+
 ### 5. 自定义密码匹配器 
 ```shell
 https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/52efc8411499a453bcff90fb9eaa87de3b2ac06a
