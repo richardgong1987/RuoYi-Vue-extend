@@ -1,11 +1,10 @@
 package com.ruoyi.common.utils;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.ruoyi.common.constant.HttpStatus;
 import com.ruoyi.common.core.domain.model.LoginUser;
 import com.ruoyi.common.exception.CustomException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * 安全服务工具类
@@ -61,8 +60,6 @@ public class SecurityUtils
     public static String encryptPassword(String password)
     {
         return PHPpassword.PHPpasswordHash(password);
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        return passwordEncoder.encode(password);
     }
 
     /**
@@ -75,8 +72,6 @@ public class SecurityUtils
     public static boolean matchesPassword(String rawPassword, String encodedPassword)
     {
         return PHPpassword.PHPpasswordVerify(rawPassword,encodedPassword);
-//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
     /**

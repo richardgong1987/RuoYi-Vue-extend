@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     /**
      * 自定义用户认证逻辑
      */
-    @Qualifier("userDetailsServiceImpl")
+
+    @Qualifier("customeUserDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
     
@@ -146,10 +147,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception
     {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+
         auth.authenticationProvider(authenticationProvider());
     }
     @Bean
     public AuthenticationProvider authenticationProvider() {
+
         AuthenticationProvider authenticationProvider = new MyAuthenticationProvider();
         return authenticationProvider;
     }
