@@ -1,16 +1,27 @@
 import request from '@/utils/request'
 
 // 登录方法
-export function login(username, password, code, uuid, googlecode) {
+export function login(username, password, code, uuid) {
   const data = {
     username,
     password,
     code,
-    uuid,
-    googlecode
+    uuid
   }
   return request({
     url: '/login',
+    method: 'post',
+    data: data
+  })
+}
+
+// 注册方法
+export function register(data) {
+  return request({
+    url: '/register',
+    headers: {
+      isToken: false
+    },
     method: 'post',
     data: data
   })
@@ -36,6 +47,7 @@ export function logout() {
 export function getCodeImg() {
   return request({
     url: '/captchaImage',
-    method: 'get'
+    method: 'get',
+    timeout: 20000
   })
 }

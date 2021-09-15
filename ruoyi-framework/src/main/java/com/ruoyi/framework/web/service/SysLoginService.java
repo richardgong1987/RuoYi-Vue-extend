@@ -11,7 +11,7 @@ import com.ruoyi.common.constant.Constants;
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.domain.model.LoginUser;
 import com.ruoyi.common.core.redis.RedisCache;
-import com.ruoyi.common.exception.CustomException;
+import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.exception.user.CaptchaException;
 import com.ruoyi.common.exception.user.CaptchaExpireException;
 import com.ruoyi.common.exception.user.UserPasswordNotMatchException;
@@ -62,7 +62,7 @@ public class SysLoginService
         // 验证码开关
         if (captchaOnOff)
         {
-            validateCapcha(username, code, uuid);
+            validateCaptcha(username, code, uuid);
         }
         // 用户验证
         Authentication authentication = null;
@@ -82,7 +82,7 @@ public class SysLoginService
             else
             {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
-                throw new CustomException(e.getMessage());
+                throw new ServiceException(e.getMessage());
             }
         }
         AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
@@ -100,7 +100,7 @@ public class SysLoginService
      * @param uuid 唯一标识
      * @return 结果
      */
-    public void validateCapcha(String username, String code, String uuid)
+    public void validateCaptcha(String username, String code, String uuid)
     {
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
         String captcha = redisCache.getCacheObject(verifyKey);
