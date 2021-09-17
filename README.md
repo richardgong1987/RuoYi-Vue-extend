@@ -12,27 +12,27 @@
 # 扩展版新增的功能
 ### 1. 新增google authenticator验证并配置开关
 
-[实现过程文档](https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81):
+[实现过程文档](https://richardgong1987.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81):
 ```shell
-https://google-microsoft.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81
+https://richardgong1987.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruoyi-vue%E5%8A%A0%E8%B0%B7%E6%AD%8C%E9%AA%8C%E8%AF%81%E7%A0%81
 ```
   
 ### 2. 增加视图插入代码功能
 ```shell
-https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/a5fde19595966e84d0acae0604c887fce52adab1
+https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/a5fde19595966e84d0acae0604c887fce52adab1
 ```
 ### 3.添加lombok到依赖
 ```shell
-https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/1172329988f2abd47b458495add3d8d3ee166474
+https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/1172329988f2abd47b458495add3d8d3ee166474
 ```
 ### 4. 升级jdk8到jdk15 
 ```shell
-https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/4331df41f9f658c0e1f0c6744959fa63c8272740
+https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/4331df41f9f658c0e1f0c6744959fa63c8272740
 ```
 
 ### 5. 自定义密码匹配器 
 ```shell
-https://github1s.com/google-microsoft/RuoYi-Vue-extend/commit/52efc8411499a453bcff90fb9eaa87de3b2ac06a
+https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/52efc8411499a453bcff90fb9eaa87de3b2ac06a
 ```
 
 
