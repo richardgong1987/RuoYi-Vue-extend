@@ -2,6 +2,7 @@ package com.ruoyi.framework.security.service;
 
 import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.common.core.domain.model.LoginUser;
+import com.ruoyi.common.exception.base.BaseException;
 import com.ruoyi.framework.web.service.SysPermissionService;
 import com.ruoyi.system.service.ISysUserService;
 import org.slf4j.Logger;
@@ -12,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.enums.UserStatus;
-import com.ruoyi.common.exception.BaseException;
 import com.ruoyi.common.utils.StringUtils;
 
 /**
