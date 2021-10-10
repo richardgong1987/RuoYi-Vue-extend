@@ -6,7 +6,7 @@ import java.util.Set;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.ruoyi.common.core.domain.entity.SysUser;
 
 /**
@@ -121,7 +121,7 @@ public class LoginUser implements UserDetails
         this.permissions = permissions;
     }
 
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public String getPassword()
     {
@@ -137,7 +137,7 @@ public class LoginUser implements UserDetails
     /**
      * 账户是否未过期,过期无法验证
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonExpired()
     {
@@ -149,7 +149,7 @@ public class LoginUser implements UserDetails
      * 
      * @return
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isAccountNonLocked()
     {
@@ -161,7 +161,7 @@ public class LoginUser implements UserDetails
      * 
      * @return
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isCredentialsNonExpired()
     {
@@ -173,7 +173,7 @@ public class LoginUser implements UserDetails
      * 
      * @return
      */
-    @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public boolean isEnabled()
     {
