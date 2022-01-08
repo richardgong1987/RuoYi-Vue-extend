@@ -11,13 +11,6 @@
 
 # 扩展版新增的功能
 
-## feat: update jdk1.8 to jdk 17 and add lombok
-
-```shell
-
-https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/5bfa77a4e1244e174d277113cc9b745c04ec2216
-
-```
 
 ###  新增google authenticator验证并配置开关
 
@@ -30,11 +23,8 @@ https://richardgong1987.github.io/developer-qa/docs/app-info/ruoyi#3%E5%9C%A8ruo
 ```shell
 https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/f58ce262fdd877dfc2d9b3cc7cd1d8a281a37e88
 ```
-###  添加lombok到依赖
-```shell
-https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/1172329988f2abd47b458495add3d8d3ee166474
-```
-###   升级jdk8到jdk15 
+
+###   升级jdk8到jdk17,和,lombok
 ```shell
 https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/5bfa77a4e1244e174d277113cc9b745c04ec2216
 ```
