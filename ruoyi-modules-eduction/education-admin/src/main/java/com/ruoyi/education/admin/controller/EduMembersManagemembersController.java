@@ -1,7 +1,6 @@
 package com.ruoyi.education.admin.controller;
 
 import java.util.List;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.common.annotation.Log;

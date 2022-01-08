@@ -5,15 +5,15 @@ import com.ruoyi.education.admin.domain.EduMembersManageclasses;
 
 /**
  * 班级管理Service接口
- * 
+ *
  * @author richard
  * @date 2021-12-30
  */
-public interface IEduMembersManageclassesService 
+public interface IEduMembersManageclassesService
 {
     /**
      * 查询班级管理
-     * 
+     *
      * @param id 班级管理主键
      * @return 班级管理
      */
@@ -21,7 +21,7 @@ public interface IEduMembersManageclassesService
 
     /**
      * 查询班级管理列表
-     * 
+     *
      * @param eduMembersManageclasses 班级管理
      * @return 班级管理集合
      */
@@ -29,7 +29,7 @@ public interface IEduMembersManageclassesService
 
     /**
      * 新增班级管理
-     * 
+     *
      * @param eduMembersManageclasses 班级管理
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface IEduMembersManageclassesService
 
     /**
      * 修改班级管理
-     * 
+     *
      * @param eduMembersManageclasses 班级管理
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface IEduMembersManageclassesService
 
     /**
      * 批量删除班级管理
-     * 
+     *
      * @param ids 需要删除的班级管理主键集合
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface IEduMembersManageclassesService
 
     /**
      * 删除班级管理信息
-     * 
+     *
      * @param id 班级管理主键
      * @return 结果
      */

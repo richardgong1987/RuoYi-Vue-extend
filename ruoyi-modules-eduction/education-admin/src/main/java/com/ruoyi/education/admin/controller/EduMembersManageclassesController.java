@@ -2,7 +2,6 @@ package com.ruoyi.education.admin.controller;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.common.annotation.Log;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.education.admin.domain.EduMembersManageclasses;
 import com.ruoyi.education.admin.service.IEduMembersManageclassesService;
-import com.ruoyi.common.core.controller.BaseController;
 
 /**
  * 班级管理Controller

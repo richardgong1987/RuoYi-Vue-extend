@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.education.admin.mapper.EduMembersManageschoolsMapper">
-    
+
     <resultMap type="EduMembersManageschools" id="EduMembersManageschoolsResult">
         <result property="id"    column="id"    />
         <result property="name"    column="name"    />
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectEduMembersManageschoolsList" parameterType="EduMembersManageschools" resultMap="EduMembersManageschoolsResult">
         <include refid="selectEduMembersManageschoolsVo"/>
-        <where>  
+        <where>
             <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
             <if test="type != null "> and type = #{type}</if>
             <if test="allClassesNum != null "> and all_classes_num = #{allClassesNum}</if>
@@ -31,12 +31,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="phone != null  and phone != ''"> and phone like concat('%', #{phone}, '%')</if>
         </where>
     </select>
-    
+
     <select id="selectEduMembersManageschoolsById" parameterType="Long" resultMap="EduMembersManageschoolsResult">
         <include refid="selectEduMembersManageschoolsVo"/>
         where id = #{id}
     </select>
-        
+
     <insert id="insertEduMembersManageschools" parameterType="EduMembersManageschools" useGeneratedKeys="true" keyProperty="id">
         insert into edu_members_manageschools
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -84,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteEduMembersManageschoolsByIds" parameterType="String">
-        delete from edu_members_manageschools where id in 
+        delete from edu_members_manageschools where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
