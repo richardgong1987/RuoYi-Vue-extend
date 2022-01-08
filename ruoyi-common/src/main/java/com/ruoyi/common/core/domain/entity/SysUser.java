@@ -2,11 +2,7 @@ package com.ruoyi.common.core.domain.entity;
 
 import java.util.Date;
 import java.util.List;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-import lombok.Data;
+import javax.validation.constraints.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -16,13 +12,13 @@ import com.ruoyi.common.annotation.Excel.ColumnType;
 import com.ruoyi.common.annotation.Excel.Type;
 import com.ruoyi.common.annotation.Excels;
 import com.ruoyi.common.core.domain.BaseEntity;
+import com.ruoyi.common.xss.Xss;
 
 /**
  * 用户对象 sys_user
  * 
  * @author ruoyi
  */
-@Data
 public class SysUser extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -50,9 +46,6 @@ public class SysUser extends BaseEntity
     /** 手机号码 */
     @Excel(name = "手机号码")
     private String phonenumber;
-    /** 谷歌密钥 */
-    @Excel(name = "googlekey")
-    private String googlekey;
 
     /** 用户性别 */
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
@@ -123,13 +116,6 @@ public class SysUser extends BaseEntity
 
     public boolean isAdmin()
     {
-        if (this.roles != null) {
-            for (SysRole role : this.roles) {
-                if (role.isAdmin()) {
-                    return true;
-                }
-            }
-        }
         return isAdmin(this.userId);
     }
 
@@ -148,6 +134,7 @@ public class SysUser extends BaseEntity
         this.deptId = deptId;
     }
 
+    @Xss(message = "用户昵称不能包含脚本字符")
     @Size(min = 0, max = 30, message = "用户昵称长度不能超过30个字符")
     public String getNickName()
     {
@@ -159,6 +146,7 @@ public class SysUser extends BaseEntity
         this.nickName = nickName;
     }
 
+    @Xss(message = "用户账号不能包含脚本字符")
     @NotBlank(message = "用户账号不能为空")
     @Size(min = 0, max = 30, message = "用户账号长度不能超过30个字符")
     public String getUserName()
