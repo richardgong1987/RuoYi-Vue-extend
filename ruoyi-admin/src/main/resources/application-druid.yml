@@ -3,6 +3,10 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
+        sql:
+          init:
+            data-locations: classpath:database/data.sql
+
         druid:
             # 主库数据源
             master:
@@ -87,14 +91,14 @@ spring:
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
+
 mybatis-plus:
   global-config:
     banner: false
-  type-aliases-package: com.ruoyi.**.domain
-  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.ruoyi.file.domain
+  mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: false
-
 
 # 本地文件上传
 file:
