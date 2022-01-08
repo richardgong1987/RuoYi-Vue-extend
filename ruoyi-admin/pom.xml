@@ -64,6 +64,10 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-modules-file</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-modules-eduction</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

@@ -225,6 +225,11 @@
                 <artifactId>ruoyi-modules-file</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-modules-eduction</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -236,6 +241,7 @@
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>ruoyi-modules-file</module>
+        <module>ruoyi-modules-eduction</module>
     </modules>
     <packaging>pom</packaging>
 
