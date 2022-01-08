@@ -42,3 +42,13 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+yarn.lock
+./tools/yarn.lock
+node_modules
+tmp.json
+tmp.toml
+*.jar
+docker/mysql/data
+docker/mysql/db
+logs
+*.zip
