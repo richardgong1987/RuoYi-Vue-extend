@@ -62,7 +62,7 @@
         </dependency>
         <dependency>
             <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-modules-file</artifactId>
+            <artifactId>ruoyi-file</artifactId>
         </dependency>
         <dependency>
             <groupId>com.ruoyi</groupId>

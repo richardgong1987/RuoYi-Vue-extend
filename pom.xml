@@ -222,7 +222,7 @@
             </dependency>
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-modules-file</artifactId>
+                <artifactId>ruoyi-file</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
             <dependency>
@@ -240,8 +240,8 @@
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
-        <module>ruoyi-modules-file</module>
-        <module>ruoyi-education-admin</module>
+        <module>ruoyi-file</module>
+        <module>ruoyi-educationadmin</module>
     </modules>
     <packaging>pom</packaging>
 
