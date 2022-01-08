@@ -1,4 +1,4 @@
-
+﻿
 
 /**
  * 通用js方法封装处理
@@ -68,7 +68,7 @@ export function addDateRange(params, dateRange, propName) {
   return search;
 }
 
-// 回显数据字典 
+// 回显数据字典
 export function selectDictLabel(datas, value) {
   var actions = [];
   Object.keys(datas).some((key) => {
@@ -222,4 +222,15 @@ export async function blobValidate(data) {
   } catch (error) {
     return true;
   }
+}
+
+export function getUserId(){
+  let userId = location.pathname.split('/').pop();
+  if (/^\d+$/.test(userId)) {
+    return  userId;
+  }
+  return '';
+}
+export function deepCopyJson(obj){
+  return JSON.parse(JSON.stringify(obj));
 }
