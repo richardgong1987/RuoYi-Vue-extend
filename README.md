@@ -33,6 +33,10 @@ https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/5bfa77a4e1244e174d2
 ```shell
 https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/52efc8411499a453bcff90fb9eaa87de3b2ac06a
 ```
+###  文件系统(基于minio,es) 
+```shell
+https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/2ce8aaa1a082973c6d9d9f4ddd31ae430c4c4524
+```
 
 
 # 内置功能
