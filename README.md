@@ -1,4 +1,7 @@
-# 平台简介
+# 平台简介 
+这是一个基于[若依RuoYi-Vue版本](https://gitee.com/y_project/RuoYi-Vue)实现的教育平台.
+
+能批量改作业,管理学校,学生,文件网盘,讲义管理
 
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt。
@@ -41,6 +44,86 @@ https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/2ce8aaa1a082973c6d9
 ```shell
 https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/ed80260bb1dbc370bbf1d591f360f676576a2dd2
 ```
+
+项目还在不断更新迭代中. 有还有功能没完善. 大概会在2022年1月底会上一版,包含微信小程序.
+
+# 安装方式
+
+首先项目使用的是JDK17, 而不是jdk1.8注意哦.
+
+如果用idea开发的,记得升级到2021.3以上. 因为2021.3对jdk17支持比较好.
+
+### 第一步:
+
+把基础后端和前端项目部署起来先.
+
+因为本项目是基于RuoYi-Cloud的,只要把RuoYi-Cloud部署起来就成功了90%了,并且,决大部分文档只需要参考RuoYi-Cloud的就可以
+
+[环境部署文档 | RuoYi-clould](http://doc.ruoyi.vip/ruoyi-cloud/document/hjbs.html)
+
+```shell
+http://doc.ruoyi.vip/ruoyi-cloud/document/hjbs.html
+```
+
+注意:
+
+这里的mysql,redis密码统分别放在nacos各个不同的微服务配置文件中.要分开修改.
+
+## 第二步:
+
+把前面一步完成了后.
+
+接下来作以下操作:
+
+- 安装elasticsearch
+
+https://www.elastic.co/elasticsearch/
+
+- 安装minio
+
+  https://min.io/
+
+因为RuoYiFileApplication服务的网盘功能的搜索是基于elasticsearch的,文件管理默认使用的是minio
+
+
+在项目根目录下的sql-eduction目录下有三个sql脚本
+
+```shell
+sql-eduction
+|-- ry_config20220106.sql
+|-- ry_clould20220105.sql
+
+```
+
+- ry-config20220106.sql请刷覆盖到ry-config库中
+- ry-clould-2022-01-05.sql请刷覆盖到ry-cloud库中
+
+  注意:
+
+  这里的mysql,redis密码统一放在ruoyi-application-dev.yml
+
+  另外minio的用户名和密码在ruoyi-file-dev.yml里需要修改
+
+- 教育平台的微服务是RuoYiEducationAdminApplication,RuoYiFileApplication启动这个两个
+
+
+作完前面两大步骤.就可以正常运行本项目了.
+
+# 功能展示截图:
+
+* ### 学校管理,班级管理,学生管理,会员管理 ![img.png](assets/img.png)
+
+* ### 文件网盘(用于管理素材,视频,绘本,一切文件管理)
+
+  ![](assets/2022-01-03-11-04-04-image.png)
+
+  ![](assets/2022-01-03-11-04-59-image.png)
+
+* ### 讲义管理,各个老师班级管理
+
+  ![](assets/2022-01-04-10-10-45-image.png)
+
+  ![](assets/2022-01-03-11-08-03-image.png)
 
 
 # 内置功能
