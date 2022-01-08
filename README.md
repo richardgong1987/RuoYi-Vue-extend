@@ -37,6 +37,10 @@ https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/52efc8411499a453bcf
 ```shell
 https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/2ce8aaa1a082973c6d9d9f4ddd31ae430c4c4524
 ```
+###  学校管理
+```shell
+https://github1s.com/richardgong1987/RuoYi-Vue-extend/commit/ed80260bb1dbc370bbf1d591f360f676576a2dd2
+```
 
 
 # 内置功能
