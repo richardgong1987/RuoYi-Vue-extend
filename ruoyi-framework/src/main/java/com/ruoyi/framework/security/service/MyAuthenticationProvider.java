@@ -17,7 +17,6 @@ import java.util.Collection;
 
 @Component
 public class MyAuthenticationProvider implements AuthenticationProvider {
-
     @Qualifier("userDetailsServiceImpl")
     @Autowired
     private UserDetailsService userService;
