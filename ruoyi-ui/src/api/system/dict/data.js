@@ -22,7 +22,7 @@ export function getDicts(dictType) {
   let url = '/system/dict/data/type/' + dictType;
   if(dictType.endsWith("__dict")){
     let split = dictType.split("__").shift().split("_");
-    url = `/edu-admin/${split.join("/")}/dict`
+    url = `/${split.join("/")}/dict`
   }
   return request({
     url,

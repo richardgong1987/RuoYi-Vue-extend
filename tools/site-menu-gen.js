@@ -1,6 +1,6 @@
 const {reorderMenuIds, outSql} = require("./utils");
 var sql = `
-USE \`ry-cloud\`;
+USE \`ry_vue_extend\`;
 DELETE
 FROM sys_menu
 WHERE menu_id >= 3000;

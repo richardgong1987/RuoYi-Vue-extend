@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询学生管理列表
 export function listManagementStudents(query) {
   return request({
-    url: '/edu-admin/peoples/managementStudents/list',
+    url: '/peoples/managementStudents/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listManagementStudents(query) {
 // 查询学生管理详细
 export function getManagementStudents(id) {
   return request({
-    url: '/edu-admin/peoples/managementStudents/' + id,
+    url: '/peoples/managementStudents/' + id,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getManagementStudents(id) {
 // 新增学生管理
 export function addManagementStudents(data) {
   return request({
-    url: '/edu-admin/peoples/managementStudents',
+    url: '/peoples/managementStudents',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addManagementStudents(data) {
 // 修改学生管理
 export function updateManagementStudents(data) {
   return request({
-    url: '/edu-admin/peoples/managementStudents',
+    url: '/peoples/managementStudents',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateManagementStudents(data) {
 // 删除学生管理
 export function delManagementStudents(id) {
   return request({
-    url: '/edu-admin/peoples/managementStudents/' + id,
+    url: '/peoples/managementStudents/' + id,
     method: 'delete'
   })
 }

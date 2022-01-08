@@ -96,7 +96,7 @@ sql-eduction
 ```
 
 - ry-config20220106.sql请刷覆盖到ry-config库中
-- ry-clould-2022-01-05.sql请刷覆盖到ry-cloud库中
+- ry-clould-2022-01-05.sql请刷覆盖到ry_vue_extend库中
 
   注意:
 

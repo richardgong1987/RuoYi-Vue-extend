@@ -5,6 +5,41 @@ import Cookies from 'js-cookie'
 import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 
+import './assets/styles/element-variables.scss'
+
+import '_a/styles/css/base.css'
+import '_a/styles/css/element-cover.css'
+import '_a/styles/iconfont/iconfont.css'
+import '_a/styles/elementCover.scss'
+import '_a/styles/mediaScreenXs.scss'
+import 'element-ui/lib/theme-chalk/index.css'
+
+import globalFunction from '@/libs/globalFunction'
+import * as filters from '@/filters/index'
+import element from './plugins/element'
+import config from '@/config/index'
+import uploader from 'vue-simple-uploader'
+// 引入挂载新建文件夹、新建文件、移动文件等插件
+import operateElement from '@/plugins/fileOperationPlugins'
+// collapse 展开折叠
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition'
+
+Vue.component(CollapseTransition.name, CollapseTransition)
+for (let key in globalFunction) {
+  Vue.prototype[key] = globalFunction[key]
+}
+Vue.use(element)
+Vue.prototype.$config = config
+Vue.use(uploader)
+Vue.use(operateElement) //  挂载自定义插件
+
+Object.keys(filters).forEach((key) => {
+  Vue.filter(key, filters[key])
+})
+
+
+
+
 import '@/assets/styles/index.scss' // global css
 import '@/assets/styles/ruoyi.scss' // ruoyi css
 import App from './App'
@@ -37,7 +72,6 @@ import DictTag from '@/components/DictTag'
 import VueMeta from 'vue-meta'
 // 字典数据组件
 import DictData from '@/components/DictData'
-
 // 全局方法挂载
 Vue.prototype.getDicts = getDicts
 Vue.prototype.getConfigKey = getConfigKey
@@ -57,7 +91,6 @@ Vue.component('Editor', Editor)
 Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 Vue.component('ImagePreview', ImagePreview)
-
 Vue.use(directive)
 Vue.use(plugins)
 Vue.use(VueMeta)
