@@ -227,8 +227,8 @@
             </dependency>
             <dependency>
                 <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-modules-eduction</artifactId>
-                <version>${ruoyi.version}</version>
+                <artifactId>education-admin</artifactId>
+                <version>3.8.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -241,7 +241,7 @@
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>
         <module>ruoyi-modules-file</module>
-        <module>ruoyi-modules-eduction</module>
+        <module>ruoyi-education-admin</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -9,13 +9,21 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ruoyi-modules-eduction</artifactId>
+    <artifactId>education-admin</artifactId>
 
-    <packaging>pom</packaging>
-    <description>
-        education modules
-    </description>
-    <modules>
-        <module>education-admin</module>
-    </modules>
+    <dependencies>
+
+        <!-- collections工具类 -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+        </dependency>
+
+        <!-- 通用工具-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-common</artifactId>
+        </dependency>
+
+    </dependencies>
 </project>

@@ -4,14 +4,14 @@ import {getUserId} from "@/utils/ruoyi";
 export function get(url, params={}) {
   params.userId = getUserId();
   return request({
-    url: `/file${url}`,
+    url: `${url}`,
     method: 'get',
     params: params
   })
 }
 function setUserIdToUrl(url) {
   let userId = getUserId();
-  return `/file${url}?userId=${userId}`
+  return `${url}?userId=${userId}`
 }
 export function post(url, data = {}, info) {
   return request({
