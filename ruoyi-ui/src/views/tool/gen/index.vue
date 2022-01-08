@@ -150,6 +150,13 @@
             @click="handleGenTable(scope.row)"
             v-hasPermi="['tool:gen:code']"
           >生成代码</el-button>
+           <el-button
+            type="text"
+            size="small"
+            icon="el-icon-download"
+            @click="handleGenTable(scope.row,true)"
+            v-hasPermi="['tool:gen:code']"
+          >直接写入到项目</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -179,7 +186,7 @@
 </template>
 
 <script>
-import { listTable, previewTable, delTable, genCode, synchDb } from "@/api/tool/gen";
+import {listTable, previewTable, delTable, genCode, synchDb, genCodeInsert} from "@/api/tool/gen";
 import importTable from "./importTable";
 import hljs from "highlight.js/lib/highlight";
 import "highlight.js/styles/github-gist.css";
@@ -259,11 +266,14 @@ export default {
       this.getList();
     },
     /** 生成代码操作 */
-    handleGenTable(row) {
+    handleGenTable(row,isInsertproject=false) {
       const tableNames = row.tableName || this.tableNames;
       if (tableNames == "") {
         this.$modal.msgError("请选择要生成的数据");
         return;
+      }
+      if (isInsertproject) {
+        return genCodeInsert(`${tableNames}`);
       }
       if(row.genType === "1") {
         genCode(row.tableName).then(response => {

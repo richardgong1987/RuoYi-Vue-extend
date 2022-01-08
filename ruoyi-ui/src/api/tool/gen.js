@@ -74,3 +74,10 @@ export function synchDb(tableName) {
     method: 'get'
   })
 }
+// 生成代码（自定义路径）
+export function genCodeInsert(tables) {
+  return request({
+    url: '/tool/gen/batchGenCodewrite?tables=' + tables,
+    method: 'get'
+  })
+}

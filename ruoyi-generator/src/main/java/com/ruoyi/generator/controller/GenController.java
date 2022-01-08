@@ -30,7 +30,7 @@ import com.ruoyi.generator.service.IGenTableService;
 
 /**
  * 代码生成 操作处理
- * 
+ *
  * @author ruoyi
  */
 @RestController
@@ -210,5 +210,18 @@ public class GenController extends BaseController
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
         IOUtils.write(data, response.getOutputStream());
+    }
+    /**
+     * 生成代码（自定义路径）
+     */
+    @PreAuthorize("@ss.hasPermi('tool:gen:code')")
+    @Log(title = "直接插入项目代码生成", businessType = BusinessType.GENCODE)
+    @GetMapping("/batchGenCodewrite")
+    public AjaxResult batchGenCodewrite(String tables)
+    {
+        for (String table : Convert.toStrArray(tables)) {
+            genTableService.generatorCodeInsert(table);
+        }
+        return AjaxResult.success();
     }
 }
