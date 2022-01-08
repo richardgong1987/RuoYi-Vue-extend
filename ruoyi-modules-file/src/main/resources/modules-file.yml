@@ -1,0 +1,129 @@
+
+# mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.ruoyi.gen.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:mapper/**/*.xml
+
+# 本地文件上传
+file:
+  domain: http://127.0.0.1:9300
+  path: D:/ruoyi/uploadPath
+  prefix: /statics
+
+# FastDFS配置
+fdfs:
+  domain: http://8.129.231.12
+  soTimeout: 3000
+  connectTimeout: 2000
+  trackerList: 8.129.231.12:22122
+
+# Minio配置
+minio:
+  url: http://localhost:9000
+  consoleUrl: http://localhost:9001
+  accessKey: admin
+  secretKey: password
+  bucketName: education
+
+
+deployment:
+  host: localhost
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ry_vue_extend?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: password
+    data: classpath:database/data.sql
+    initialization-mode: ALWAYS
+    sql-script-encoding: utf-8
+
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    static-path-pattern: /**
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 10000
+        max-idle: 30
+        min-idle: 10
+    host: 127.0.0.1
+    port: 6379
+    timeout: 5000
+    database: 0
+    password:
+  web:
+    resources:
+      static-locations: classpath:/static
+  elasticsearch:
+    rest:
+      uris: 127.0.0.1:9200
+      password:
+      username:
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 2048MB
+      max-file-size: 2048MB
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: 127.0.0.1:9200
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        hbm2ddl:
+          auto: update
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+mybatis-plus:
+  global-config:
+    banner: false
+  type-aliases-package: com.ruoyi.file.domain
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+
+ufop:
+  minio:
+    endpoint: ${minio.url}
+    bucket-name: ${minio.bucketName}
+    access-key: ${minio.accessKey}
+    secret-key: ${minio.secretKey}
+    console-url: ${minio.consoleUrl}
+  thumb-image:
+    height: 150
+    width: 150
+  storage-type: 3
+  local-storage-path:
+
+
+files:
+  docservice:
+    url:
+      command: coauthoring/CommandService.ashx
+      preloader: web-apps/apps/api/documents/cache-scripts.html
+      example: ''
+      site: http://localhost:80/
+      api: web-apps/apps/api/documents/api.js
+      converter: ConvertService.ashx
+    header: Authorization
+    edited-docs: .docx|.xlsx|.csv|.pptx|.txt
+    viewed-docs: .pdf|.djvu|.xps
+    secret: ''
+    convert-docs: .docm|.dotx|.dotm|.dot|.doc|.odt|.fodt|.ott|.xlsm|.xltx|.xltm|.xlt|.xls|.ods|.fods|.ots|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.rtf|.mht|.html|.htm|.xml|.epub|.fb2
+    timeout: 120000
+storage-folder: app_data
+filesize-max: 5242880
+
+

@@ -55,3 +55,100 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+
+
+#    *****************file******************
+    web:
+      resources:
+        static-locations: classpath:/static
+    elasticsearch:
+      rest:
+        uris: 127.0.0.1:9200
+        password:
+        username:
+    servlet:
+      multipart:
+        enabled: true
+        max-request-size: 2048MB
+        max-file-size: 2048MB
+    data:
+      elasticsearch:
+        client:
+          reactive:
+            endpoints: 127.0.0.1:9200
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+          hbm2ddl:
+            auto: update
+      show-sql: true
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+mybatis-plus:
+  global-config:
+    banner: false
+  type-aliases-package: com.ruoyi.file.domain
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: false
+
+
+# 本地文件上传
+file:
+  domain: http://127.0.0.1:9300
+  path: D:/ruoyi/uploadPath
+  prefix: /statics
+
+# FastDFS配置
+fdfs:
+  domain: http://8.129.231.12
+  soTimeout: 3000
+  connectTimeout: 2000
+  trackerList: 8.129.231.12:22122
+
+# Minio配置
+minio:
+  url: http://localhost:9000
+  consoleUrl: http://localhost:9001
+  accessKey: admin
+  secretKey: password
+  bucketName: education
+
+ufop:
+  minio:
+    endpoint: ${minio.url}
+    bucket-name: ${minio.bucketName}
+    access-key: ${minio.accessKey}
+    secret-key: ${minio.secretKey}
+    console-url: ${minio.consoleUrl}
+  thumb-image:
+    height: 150
+    width: 150
+  storage-type: 3
+  local-storage-path:
+
+deployment:
+  host: localhost
+
+files:
+  docservice:
+    url:
+      command: coauthoring/CommandService.ashx
+      preloader: web-apps/apps/api/documents/cache-scripts.html
+      example: ''
+      site: http://localhost:80/
+      api: web-apps/apps/api/documents/api.js
+      converter: ConvertService.ashx
+    header: Authorization
+    edited-docs: .docx|.xlsx|.csv|.pptx|.txt
+    viewed-docs: .pdf|.djvu|.xps
+    secret: ''
+    convert-docs: .docm|.dotx|.dotm|.dot|.doc|.odt|.fodt|.ott|.xlsm|.xltx|.xltm|.xlt|.xls|.ods|.fods|.ots|.pptm|.ppt|.ppsx|.ppsm|.pps|.potx|.potm|.pot|.odp|.fodp|.otp|.rtf|.mht|.html|.htm|.xml|.epub|.fb2
+    timeout: 120000
+storage-folder: app_data
+filesize-max: 5242880
+
+
