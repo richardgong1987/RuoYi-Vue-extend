@@ -76,14 +76,7 @@ public class MinioConfig {
     }
 
     @Bean
-    public MinioClient getMinioClient() throws InvalidPortException, InvalidEndpointException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, RegionConflictException {
-        MinioClient minioClient = new MinioClient(getUrl(), getAccessKey(), getSecretKey());
-        // 检查存储桶是否已经存在
-        boolean isExist = minioClient.bucketExists(getBucketName());
-        if (!isExist) {
-            minioClient.makeBucket(getBucketName());
-        }
-        return minioClient;
-//        return MinioClient.builder().endpoint(url).credentials(accessKey, secretKey).build();
+    public MinioClient getMinioClient()  {
+        return MinioClient.builder().endpoint(url).credentials(accessKey, secretKey).build();
     }
 }
