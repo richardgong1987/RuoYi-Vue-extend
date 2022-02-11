@@ -1,61 +1,138 @@
 package com.ruoyi.file.service;
 
 import java.util.List;
+import java.util.Set;
+
 import com.ruoyi.file.domain.FileStoreMenu;
+import com.ruoyi.file.domain.RouterVoFile;
+import com.ruoyi.file.domain.TreeSelectFile;
 
 /**
  * 菜单权限Service接口
- * 
+ *
  * @author ruoyi
  * @date 2022-02-11
  */
-public interface IFileStoreMenuService 
+public interface IFileStoreMenuService
 {
     /**
-     * 查询菜单权限
-     * 
-     * @param menuId 菜单权限主键
-     * @return 菜单权限
+     * 根据用户查询系统菜单列表
+     *
+     * @param userId 用户ID
+     * @return 菜单列表
      */
-    public FileStoreMenu selectFileStoreMenuByMenuId(Long menuId);
+    public List<FileStoreMenu> selectMenuList(Long userId);
 
     /**
-     * 查询菜单权限列表
-     * 
-     * @param fileStoreMenu 菜单权限
-     * @return 菜单权限集合
+     * 根据用户查询系统菜单列表
+     *
+     * @param menu 菜单信息
+     * @param userId 用户ID
+     * @return 菜单列表
      */
-    public List<FileStoreMenu> selectFileStoreMenuList(FileStoreMenu fileStoreMenu);
+    public List<FileStoreMenu> selectMenuList(FileStoreMenu menu, Long userId);
 
     /**
-     * 新增菜单权限
-     * 
-     * @param fileStoreMenu 菜单权限
+     * 根据用户ID查询权限
+     *
+     * @param userId 用户ID
+     * @return 权限列表
+     */
+    public Set<String> selectMenuPermsByUserId(Long userId);
+
+    /**
+     * 根据用户ID查询菜单树信息
+     *
+     * @param userId 用户ID
+     * @return 菜单列表
+     */
+    public List<FileStoreMenu> selectMenuTreeByUserId(Long userId);
+
+    /**
+     * 根据角色ID查询菜单树信息
+     *
+     * @param roleId 角色ID
+     * @return 选中菜单列表
+     */
+    public List<Long> selectMenuListByRoleId(Long roleId);
+
+    /**
+     * 构建前端路由所需要的菜单
+     *
+     * @param menus 菜单列表
+     * @return 路由列表
+     */
+    public List<RouterVoFile> buildMenus(List<FileStoreMenu> menus);
+
+    /**
+     * 构建前端所需要树结构
+     *
+     * @param menus 菜单列表
+     * @return 树结构列表
+     */
+    public List<FileStoreMenu> buildMenuTree(List<FileStoreMenu> menus);
+
+    /**
+     * 构建前端所需要下拉树结构
+     *
+     * @param menus 菜单列表
+     * @return 下拉树结构列表
+     */
+    public List<TreeSelectFile> buildMenuTreeSelect(List<FileStoreMenu> menus);
+
+    /**
+     * 根据菜单ID查询信息
+     *
+     * @param menuId 菜单ID
+     * @return 菜单信息
+     */
+    public FileStoreMenu selectMenuById(Long menuId);
+
+    /**
+     * 是否存在菜单子节点
+     *
+     * @param menuId 菜单ID
+     * @return 结果 true 存在 false 不存在
+     */
+    public boolean hasChildByMenuId(Long menuId);
+
+    /**
+     * 查询菜单是否存在角色
+     *
+     * @param menuId 菜单ID
+     * @return 结果 true 存在 false 不存在
+     */
+    public boolean checkMenuExistRole(Long menuId);
+
+    /**
+     * 新增保存菜单信息
+     *
+     * @param menu 菜单信息
      * @return 结果
      */
-    public int insertFileStoreMenu(FileStoreMenu fileStoreMenu);
+    public int insertMenu(FileStoreMenu menu);
 
     /**
-     * 修改菜单权限
-     * 
-     * @param fileStoreMenu 菜单权限
+     * 修改保存菜单信息
+     *
+     * @param menu 菜单信息
      * @return 结果
      */
-    public int updateFileStoreMenu(FileStoreMenu fileStoreMenu);
+    public int updateMenu(FileStoreMenu menu);
 
     /**
-     * 批量删除菜单权限
-     * 
-     * @param menuIds 需要删除的菜单权限主键集合
+     * 删除菜单管理信息
+     *
+     * @param menuId 菜单ID
      * @return 结果
      */
-    public int deleteFileStoreMenuByMenuIds(Long[] menuIds);
+    public int deleteMenuById(Long menuId);
 
     /**
-     * 删除菜单权限信息
-     * 
-     * @param menuId 菜单权限主键
+     * 校验菜单名称是否唯一
+     *
+     * @param menu 菜单信息
      * @return 结果
      */
-    public int deleteFileStoreMenuByMenuId(Long menuId);
+    public String checkMenuNameUnique(FileStoreMenu menu);
 }

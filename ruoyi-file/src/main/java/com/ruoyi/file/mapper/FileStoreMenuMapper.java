@@ -1,61 +1,119 @@
 package com.ruoyi.file.mapper;
 
 import java.util.List;
+
 import com.ruoyi.file.domain.FileStoreMenu;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 菜单权限Mapper接口
- * 
+ *
  * @author ruoyi
  * @date 2022-02-11
  */
-public interface FileStoreMenuMapper 
+public interface FileStoreMenuMapper
 {
     /**
-     * 查询菜单权限
-     * 
-     * @param menuId 菜单权限主键
-     * @return 菜单权限
+     * 查询系统菜单列表
+     *
+     * @param menu 菜单信息
+     * @return 菜单列表
      */
-    public FileStoreMenu selectFileStoreMenuByMenuId(Long menuId);
+    public List<FileStoreMenu> selectMenuList(FileStoreMenu menu);
 
     /**
-     * 查询菜单权限列表
-     * 
-     * @param fileStoreMenu 菜单权限
-     * @return 菜单权限集合
+     * 根据用户所有权限
+     *
+     * @return 权限列表
      */
-    public List<FileStoreMenu> selectFileStoreMenuList(FileStoreMenu fileStoreMenu);
+    public List<String> selectMenuPerms();
 
     /**
-     * 新增菜单权限
-     * 
-     * @param fileStoreMenu 菜单权限
+     * 根据用户查询系统菜单列表
+     *
+     * @param menu 菜单信息
+     * @return 菜单列表
+     */
+    public List<FileStoreMenu> selectMenuListByUserId(FileStoreMenu menu);
+
+    /**
+     * 根据用户ID查询权限
+     *
+     * @param userId 用户ID
+     * @return 权限列表
+     */
+    public List<String> selectMenuPermsByUserId(Long userId);
+
+    /**
+     * 根据用户ID查询菜单
+     *
+     * @return 菜单列表
+     */
+    public List<FileStoreMenu> selectMenuTreeAll();
+
+    /**
+     * 根据用户ID查询菜单
+     *
+     * @param userId 用户ID
+     * @return 菜单列表
+     */
+    public List<FileStoreMenu> selectMenuTreeByUserId(Long userId);
+
+    /**
+     * 根据角色ID查询菜单树信息
+     *
+     * @param roleId 角色ID
+     * @param menuCheckStrictly 菜单树选择项是否关联显示
+     * @return 选中菜单列表
+     */
+    public List<Long> selectMenuListByRoleId(@Param("roleId") Long roleId, @Param("menuCheckStrictly") boolean menuCheckStrictly);
+
+    /**
+     * 根据菜单ID查询信息
+     *
+     * @param menuId 菜单ID
+     * @return 菜单信息
+     */
+    public FileStoreMenu selectMenuById(Long menuId);
+
+    /**
+     * 是否存在菜单子节点
+     *
+     * @param menuId 菜单ID
      * @return 结果
      */
-    public int insertFileStoreMenu(FileStoreMenu fileStoreMenu);
+    public int hasChildByMenuId(Long menuId);
 
     /**
-     * 修改菜单权限
-     * 
-     * @param fileStoreMenu 菜单权限
+     * 新增菜单信息
+     *
+     * @param menu 菜单信息
      * @return 结果
      */
-    public int updateFileStoreMenu(FileStoreMenu fileStoreMenu);
+    public int insertMenu(FileStoreMenu menu);
 
     /**
-     * 删除菜单权限
-     * 
-     * @param menuId 菜单权限主键
+     * 修改菜单信息
+     *
+     * @param menu 菜单信息
      * @return 结果
      */
-    public int deleteFileStoreMenuByMenuId(Long menuId);
+    public int updateMenu(FileStoreMenu menu);
 
     /**
-     * 批量删除菜单权限
-     * 
-     * @param menuIds 需要删除的数据主键集合
+     * 删除菜单管理信息
+     *
+     * @param menuId 菜单ID
      * @return 结果
      */
-    public int deleteFileStoreMenuByMenuIds(Long[] menuIds);
+    public int deleteMenuById(Long menuId);
+
+    /**
+     * 校验菜单名称是否唯一
+     *
+     * @param menuName 菜单名称
+     * @param parentId 父菜单ID
+     * @return 结果
+     */
+    public FileStoreMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId);
 }
