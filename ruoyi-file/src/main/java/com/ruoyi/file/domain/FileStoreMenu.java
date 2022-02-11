@@ -79,29 +79,4 @@ public class FileStoreMenu extends BaseEntity
     /** 子菜单 */
     private List<FileStoreMenu> children = new ArrayList<>();
 
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("menuId", getMenuId())
-            .append("menuName", getMenuName())
-            .append("parentId", getParentId())
-            .append("orderNum", getOrderNum())
-            .append("path", getPath())
-            .append("component", getComponent())
-            .append("query", getQuery())
-            .append("isFrame", getIsFrame())
-            .append("isCache", getIsCache())
-            .append("menuType", getMenuType())
-            .append("visible", getVisible())
-            .append("status", getStatus())
-            .append("perms", getPerms())
-            .append("icon", getIcon())
-            .append("createBy", getCreateBy())
-            .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
-            .toString();
-    }
 }

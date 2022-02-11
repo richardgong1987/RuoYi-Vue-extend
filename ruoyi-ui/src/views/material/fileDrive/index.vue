@@ -146,27 +146,24 @@
 
 <script>
 import {addFileDrive, delFileDrive, getFileDrive, listFileDrive, updateFileDrive} from "@/api/material/fileDrive";
-
+import {addMapping, delMapping, listMapping} from "@/api/file/mapping";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import IconSelect from "@/components/IconSelect";
 import {getToken} from "@/utils/auth";
+import {getUserProfile} from "@/api/system/user";
 
 export default {
   name: "FileDrive",
   dicts: ['sys_show_hide', 'sys_normal_disable'],
   components: {Treeselect, IconSelect},
   data() {
+
     return {
-      headers: { Authorization: "Bearer " + getToken() },
-      uploadUrl:"http://localhost:8080/upload",
-      fileList: [{
-        name: 'food.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-      }, {
-        name: 'food2.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-      }],
+      userId: 1,
+      headers: {Authorization: "Bearer " + getToken()},
+      uploadUrl: `${location.protocol}//${location.hostname}:8080/upload`,
+      fileList: [],
       // 遮罩层
       loading: true,
       // 显示搜索条件
@@ -211,13 +208,7 @@ export default {
     submitUpload() {
       this.$refs.upload.submit();
     },
-    handleSuccess({data}, fileList){
-      console.log(data, fileList)
-      debugger
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
+
     handlePreview(file) {
       console.log(file);
     },
@@ -226,8 +217,12 @@ export default {
       this.form.icon = name;
     },
     /** 查询文件列表 */
-    getList() {
+    getList: async function () {
       this.loading = true;
+      let {data: {userId, userName}} = await getUserProfile();
+      this.userId = userId;
+      this.userName = userName;
+      this.queryParams.createBy = userName;
       listFileDrive(this.queryParams).then(response => {
         this.menuList = this.handleTree(response.data, "menuId");
         this.loading = false;
@@ -265,6 +260,7 @@ export default {
         parentId: 0,
         menuName: undefined,
         icon: undefined,
+        createBy: this.userName,
         menuType: "M",
         orderNum: 0,
         isFrame: "1",
@@ -303,10 +299,21 @@ export default {
         this.refreshTable = true;
       });
     },
+    handleSuccess({data}, fileList) {
+      var params = {userId: this.userId, menuId: this.form.menuId, ...data};
+      addMapping(params);
+    },
+
+    handleRemove({id}, fileList) {
+      delMapping(id);
+    },
     /** 上传文件按钮操作 */
-    handleUpdate(row) {
+    handleUpdate: async function (row) {
       this.reset();
       this.getTreeselect();
+      listMapping({userId: this.userId, menuId: row.menuId}).then(response => {
+        this.fileList = response.data;
+      });
       getFileDrive(row.menuId).then(response => {
         this.form = response.data;
         this.open = true;
@@ -318,6 +325,7 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.menuId != undefined) {
+            this.submitUpload();
             updateFileDrive(this.form).then(response => {
               this.$modal.msgSuccess("上传文件成功");
               this.open = false;
