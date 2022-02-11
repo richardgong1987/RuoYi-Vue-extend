@@ -37,6 +37,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="menuName != null and menuName != ''">
                 AND menu_name like concat('%', #{menuName}, '%')
             </if>
+
+            <if test="createBy != null and createBy != ''">
+                AND create_by = #{createBy}
+            </if>
+
+            <if test="menuId != null and menuId != ''">
+                AND menu_id = #{menuId}
+            </if>
+
             <if test="visible != null and visible != ''">
                 AND visible = #{visible}
             </if>

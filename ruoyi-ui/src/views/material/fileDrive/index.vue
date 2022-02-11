@@ -300,7 +300,7 @@ export default {
       });
     },
     handleSuccess({data}, fileList) {
-      var params = {userId: this.userId, menuId: this.form.menuId, ...data};
+      var params = {userId: this.userId, createBy: this.userName, menuId: this.form.menuId, ...data};
       addMapping(params);
     },
 
@@ -311,7 +311,7 @@ export default {
     handleUpdate: async function (row) {
       this.reset();
       this.getTreeselect();
-      listMapping({userId: this.userId, menuId: row.menuId}).then(response => {
+      listMapping({userId: this.userId, menuId: row.menuId, createBy: this.userName}).then(response => {
         this.fileList = response.data;
       });
       getFileDrive(row.menuId).then(response => {
