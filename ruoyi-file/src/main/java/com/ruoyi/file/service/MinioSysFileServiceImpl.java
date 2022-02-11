@@ -1,5 +1,7 @@
 package com.ruoyi.file.service;
 
+import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.uuid.IdUtils;
 import com.ruoyi.file.config.MinioConfig;
 import com.ruoyi.file.utils.FileUploadUtils;
 import io.minio.MinioClient;
@@ -8,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
 
 /**
  * Minio 文件存储
@@ -34,14 +33,16 @@ public class MinioSysFileServiceImpl implements ISysFileService {
      */
     @Override
     public String uploadFile(MultipartFile file) throws Exception {
-        String fileName = FileUploadUtils.extractFilename(file);
+        String originalFilename = file.getOriginalFilename();
+        var fileName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "/" + originalFilename;
+
         PutObjectArgs args = PutObjectArgs.builder()
-                .bucket(minioConfig.getBucketName())
-                .object(fileName)
-                .stream(file.getInputStream(), file.getSize(), -1)
-                .contentType(file.getContentType())
-                .build();
+            .bucket(minioConfig.getBucketName())
+            .object(fileName)
+            .stream(file.getInputStream(), file.getSize(), -1)
+            .contentType(file.getContentType())
+            .build();
         client.putObject(args);
-        return minioConfig.getConsoleUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+        return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
     }
 }

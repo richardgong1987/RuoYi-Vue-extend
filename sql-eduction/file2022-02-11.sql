@@ -23,3 +23,22 @@ CREATE TABLE file_store_menu
     PRIMARY KEY (menu_id)
 ) ENGINE = innodb
   AUTO_INCREMENT = 2000 COMMENT = '菜单权限表';
+
+
+DROP TABLE IF EXISTS file_store_mapping;
+CREATE TABLE file_store_mapping
+(
+    id          BIGINT(20)   NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    user_id     BIGINT(20)   NOT NULL DEFAULT 1 COMMENT '所属用户',
+    menu_id     BIGINT(20)   NOT NULL DEFAULT 0 COMMENT '所属目录',
+    name        VARCHAR(500) NOT NULL COMMENT '文件名称',
+    url         VARCHAR(600) NOT NULL COMMENT '文件URL',
+    order_num   INT(4)                DEFAULT 0 COMMENT '显示顺序',
+    create_by   VARCHAR(64)           DEFAULT '' COMMENT '创建者',
+    create_time DATETIME COMMENT '创建时间',
+    update_by   VARCHAR(64)           DEFAULT '' COMMENT '更新者',
+    update_time DATETIME COMMENT '更新时间',
+    remark      VARCHAR(500)          DEFAULT '' COMMENT '备注'
+) ENGINE = innodb
+  AUTO_INCREMENT = 2000 COMMENT = '文件关系';
+

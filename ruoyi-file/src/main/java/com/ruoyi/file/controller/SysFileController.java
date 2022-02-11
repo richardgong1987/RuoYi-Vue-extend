@@ -66,7 +66,7 @@ public class SysFileController {
     /**
      * 文件上传请求
      */
-    @PostMapping("upload")
+    @PostMapping("/upload")
     public R<FileFile> upload(MultipartFile file) {
         try {
             // 上传并返回访问地址

@@ -135,4 +135,5 @@ public class FileStoreMenuController extends BaseController
         }
         return toAjax(menuService.deleteMenuById(menuId));
     }
+
 }

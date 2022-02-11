@@ -35,7 +35,7 @@
           size="mini"
           @click="handleAdd"
           v-hasPermi="['system:menu:add']"
-        >新增
+        >新增目录
         </el-button>
       </el-col>
       <el-col :span="1.5">
@@ -69,7 +69,7 @@
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
             v-hasPermi="['system:menu:edit']"
-          >修改
+          >上传文件
           </el-button>
           <el-button
             size="mini"
@@ -77,7 +77,7 @@
             icon="el-icon-plus"
             @click="handleAdd(scope.row)"
             v-hasPermi="['system:menu:add']"
-          >新增
+          >新增目录
           </el-button>
           <el-button
             size="mini"
@@ -91,7 +91,7 @@
       </el-table-column>
     </el-table>
 
-    <!-- 添加或修改文件对话框 -->
+    <!-- 添加或上传文件文件对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="680px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="100px">
         <el-row>
@@ -117,6 +117,23 @@
             </el-form-item>
           </el-col>
         </el-row>
+        <el-upload v-if="this.form.menuId"
+                   name="file"
+                   multiple="multiple"
+                   :headers="headers"
+                   class="upload-demo"
+                   ref="upload"
+                   :action="uploadUrl"
+                   :on-preview="handlePreview"
+                   :on-success="handleSuccess"
+                   :on-remove="handleRemove"
+                   :file-list="fileList"
+                   :auto-upload="false">
+          <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+          <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
@@ -133,6 +150,7 @@ import {addFileDrive, delFileDrive, getFileDrive, listFileDrive, updateFileDrive
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import IconSelect from "@/components/IconSelect";
+import {getToken} from "@/utils/auth";
 
 export default {
   name: "FileDrive",
@@ -140,6 +158,15 @@ export default {
   components: {Treeselect, IconSelect},
   data() {
     return {
+      headers: { Authorization: "Bearer " + getToken() },
+      uploadUrl:"http://localhost:8080/upload",
+      fileList: [{
+        name: 'food.jpeg',
+        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+      }, {
+        name: 'food2.jpeg',
+        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+      }],
       // 遮罩层
       loading: true,
       // 显示搜索条件
@@ -181,6 +208,19 @@ export default {
     this.getList();
   },
   methods: {
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleSuccess({data}, fileList){
+      console.log(data, fileList)
+      debugger
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
     // 选择图标
     selected(name) {
       this.form.icon = name;
@@ -243,7 +283,7 @@ export default {
       this.resetForm("queryForm");
       this.handleQuery();
     },
-    /** 新增按钮操作 */
+    /** 新增目录按钮操作 */
     handleAdd(row) {
       this.reset();
       this.getTreeselect();
@@ -263,14 +303,14 @@ export default {
         this.refreshTable = true;
       });
     },
-    /** 修改按钮操作 */
+    /** 上传文件按钮操作 */
     handleUpdate(row) {
       this.reset();
       this.getTreeselect();
       getFileDrive(row.menuId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改文件";
+        this.title = "上传文件文件";
       });
     },
     /** 提交按钮 */
@@ -279,13 +319,13 @@ export default {
         if (valid) {
           if (this.form.menuId != undefined) {
             updateFileDrive(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
+              this.$modal.msgSuccess("上传文件成功");
               this.open = false;
               this.getList();
             });
           } else {
             addFileDrive(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
+              this.$modal.msgSuccess("新增目录成功");
               this.open = false;
               this.getList();
             });
