@@ -88,64 +88,6 @@ export const constantRoutes = [
       }
     ]
   },
-
-
-  /*****************************
-   * file manager
-   */
-  {
-    hidden: true,
-    path: '/file',
-    name: 'File',
-    component: () => import(/* webpackChunkName: "file" */ '_v/File.vue'),
-    meta: {
-      requireAuth: true, //  当前路由是否需要登录才可进入
-      title: '文件管理',
-      content: {
-        description: '图片 文档 视频 音乐 其他 回收站 我的分享'
-      }
-    }
-  },
-  {
-    hidden: true,
-    path: '/material/fileDrive',
-    name: 'materialFileDrive',
-    component: () => import(/* webpackChunkName: "file" */ '_v/File.vue'),
-    meta: {
-      requireAuth: true, //  当前路由是否需要登录才可进入
-      title: '资源管理',
-      content: {
-        description: '图片 文档 视频 音乐 其他 回收站 我的分享'
-      }
-    }
-  },
-
-  {
-    hidden: true,
-    path: '/onlyoffice',
-    name: 'Onlyoffice',
-    meta: {
-      title: '在线编辑预览',
-      content: {
-        description: 'onlyoffice 文档在线编辑预览，支持 Word Excel PowerPoint'
-      }
-    },
-    component: () =>
-      import(/* webpackChunkName: "onlyOffice" */ '_v/OnlyOffice.vue')
-  },
-  {
-    hidden: true,
-    path: '/share/:shareBatchNum',
-    name: 'Share',
-    component: () => import(/* webpackChunkName: "share" */ '_v/Share.vue'),
-    meta: {
-      title: '分享',
-      content: {
-        description: '查看他人分享'
-      }
-    },
-    props: true
-  }
 ]
 
 // 动态路由，基于用户权限动态去加载

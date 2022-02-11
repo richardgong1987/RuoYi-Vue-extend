@@ -130,32 +130,32 @@ WHERE menu_id=4;
                 '0', '', 'upload', 'admin', SYSDATE(), '', NULL, '资料管理-目录');
 
         INSERT INTO sys_menu
-        VALUES ('3030', '文件网盘', '3029', '1', 'fileDrive', 'material/fileDrive/index',
-                '', 1, 0, 'C', '0', '0', 'material:fileDrive:list', 'dengji', 'admin', SYSDATE(), '', NULL, '文件网盘-菜单');
+        VALUES ('3030', '文件管理', '3029', '1', 'fileDrive', 'material/fileDrive/index',
+                '', 1, 0, 'C', '0', '0', 'material:fileDrive:list', 'dengji', 'admin', SYSDATE(), '', NULL, '文件管理-菜单');
 
         INSERT INTO sys_menu
         VALUES ('3031', '查询', '3030', '1', '', '', '', 1, 0, 'F', '0', '0', 'material:fileDrive:query',
-                '#', 'admin', SYSDATE(), '', NULL, '文件网盘-查询-按钮');
+                '#', 'admin', SYSDATE(), '', NULL, '文件管理-查询-按钮');
 
         INSERT INTO sys_menu
         VALUES ('3032', '添加', '3030', '2', '', '', '', 1, 0, 'F', '0', '0', 'material:fileDrive:add',
-                '#', 'admin', SYSDATE(), '', NULL, '文件网盘-添加-按钮');
+                '#', 'admin', SYSDATE(), '', NULL, '文件管理-添加-按钮');
 
         INSERT INTO sys_menu
         VALUES ('3033', '编辑', '3030', '3', '', '', '', 1, 0, 'F', '0', '0', 'material:fileDrive:edit',
-                '#', 'admin', SYSDATE(), '', NULL, '文件网盘-编辑-按钮');
+                '#', 'admin', SYSDATE(), '', NULL, '文件管理-编辑-按钮');
 
         INSERT INTO sys_menu
         VALUES ('3034', '删除', '3030', '4', '', '', '', 1, 0, 'F', '0', '0', 'material:fileDrive:remove',
-                '#', 'admin', SYSDATE(), '', NULL, '文件网盘-删除-按钮');
+                '#', 'admin', SYSDATE(), '', NULL, '文件管理-删除-按钮');
 
         INSERT INTO sys_menu
         VALUES ('3035', '导入', '3030', '5', '', '', '', 1, 0, 'F', '0', '0', 'material:fileDrive:import',
-                '#', 'admin', SYSDATE(), '', NULL, '文件网盘-导入-按钮');
+                '#', 'admin', SYSDATE(), '', NULL, '文件管理-导入-按钮');
 
         INSERT INTO sys_menu
         VALUES ('3036', '导出', '3030', '6', '', '', '', 1, 0, 'F', '0', '0', 'material:fileDrive:export',
-                '#', 'admin', SYSDATE(), '', NULL, '文件网盘-导出-按钮');
+                '#', 'admin', SYSDATE(), '', NULL, '文件管理-导出-按钮');
 
         INSERT INTO sys_menu
         VALUES ('3037', '老师管理', '0', '30', 'teachers', '', NULL, 1, 0, 'M', '0',

@@ -1,7 +1,7 @@
 # 平台简介 
 这是一个基于[若依RuoYi-Vue版本](https://gitee.com/y_project/RuoYi-Vue)实现的教育平台.
 
-能批量改作业,管理学校,学生,文件网盘,讲义管理
+能批量改作业,管理学校,学生,文件管理,讲义管理
 
 * 前端采用Vue、Element UI。
 * 后端采用Spring Boot、Spring Security、Redis & Jwt。
@@ -113,7 +113,7 @@ sql-eduction
 
 * ### 学校管理,班级管理,学生管理,会员管理 ![img.png](assets/img.png)
 
-* ### 文件网盘(用于管理素材,视频,绘本,一切文件管理)
+* ### 文件管理(用于管理素材,视频,绘本,一切文件管理)
 
   ![](assets/2022-01-03-11-04-04-image.png)
 
