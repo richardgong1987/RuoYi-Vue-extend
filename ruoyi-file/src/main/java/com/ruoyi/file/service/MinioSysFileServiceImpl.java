@@ -3,13 +3,15 @@ package com.ruoyi.file.service;
 import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.uuid.IdUtils;
 import com.ruoyi.file.config.MinioConfig;
-import com.ruoyi.file.utils.FileUploadUtils;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.RemoveObjectArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.net.URL;
 
 /**
  * Minio 文件存储
@@ -23,7 +25,7 @@ public class MinioSysFileServiceImpl implements ISysFileService {
     private MinioConfig minioConfig;
 
     @Autowired
-    private MinioClient client;
+    private MinioClient minioClient;
 
     /**
      * 本地文件上传接口
@@ -42,7 +44,17 @@ public class MinioSysFileServiceImpl implements ISysFileService {
             .stream(file.getInputStream(), file.getSize(), -1)
             .contentType(file.getContentType())
             .build();
-        client.putObject(args);
+        minioClient.putObject(args);
         return minioConfig.getUrl() + "/" + minioConfig.getBucketName() + "/" + fileName;
+    }
+
+    @Override
+    public String deleteFile(String url) throws Exception {
+        String path = (new URL(url)).getPath();
+        String bucketName = minioConfig.getBucketName();
+        // Remove object.
+        minioClient.removeObject(
+            RemoveObjectArgs.builder().bucket(bucketName).object(path.substring(bucketName.length() + 1)).build());
+        return "OK";
     }
 }

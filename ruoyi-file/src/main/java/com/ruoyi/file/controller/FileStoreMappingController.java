@@ -4,10 +4,13 @@ import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.file.domain.FileStoreMapping;
 import com.ruoyi.file.service.IFileStoreMappingService;
+import com.ruoyi.file.service.ISysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -69,7 +72,19 @@ public class FileStoreMappingController extends BaseController {
     @PreAuthorize("@ss.hasPermi('file:mapping:remove')")
     @Log(title = "文件关系", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(fileStoreMappingService.deleteFileStoreMappingByIds(ids));
+    @Transactional
+    public AjaxResult remove(@PathVariable Long[] ids) throws Exception {
+        for (Long id : ids) {
+            var fileStoreMapping = fileStoreMappingService.selectFileStoreMappingById(id);
+            String url = fileStoreMapping.getUrl();
+            if (StringUtils.isNotEmpty(url)) {
+                iSysFileService.deleteFile(url);
+            }
+        }
+        int i = fileStoreMappingService.deleteFileStoreMappingByIds(ids);
+        return toAjax(i);
     }
+    @Autowired
+    ISysFileService iSysFileService;
+
 }

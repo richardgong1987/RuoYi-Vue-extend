@@ -10,6 +10,7 @@ import com.ruoyi.file.domain.FileStoreMapping;
 import com.ruoyi.file.domain.FileStoreMenu;
 import com.ruoyi.file.service.IFileStoreMappingService;
 import com.ruoyi.file.service.IFileStoreMenuService;
+import com.ruoyi.file.service.ISysFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
@@ -112,7 +113,7 @@ public class FileStoreMenuController extends BaseController {
     @Log(title = "目录管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{menuId}")
     @Transactional
-    public AjaxResult remove(@PathVariable("menuId") Long menuId) {
+    public AjaxResult remove(@PathVariable("menuId") Long menuId) throws Exception {
         if (menuService.hasChildByMenuId(menuId)) {
             return AjaxResult.error("存在子目录,不允许删除");
         }
@@ -125,13 +126,18 @@ public class FileStoreMenuController extends BaseController {
         var fileStoreMappings = fileStoreMappingService.selectFileStoreMappingList(fileStoreMapping);
         ArrayList<Long> ids = new ArrayList<>();
         for (FileStoreMapping storeMapping : fileStoreMappings) {
+            iSysFileService.deleteFile(storeMapping.getUrl());
             ids.add(storeMapping.getId());
         }
         Long[] longs = ids.toArray(new Long[]{});
-        fileStoreMappingService.deleteFileStoreMappingByIds(longs);
+        if (longs.length > 0) {
+            fileStoreMappingService.deleteFileStoreMappingByIds(longs);
+        }
         return toAjax(i);
     }
 
+    @Autowired
+    ISysFileService iSysFileService;
     @Autowired
     private IFileStoreMappingService fileStoreMappingService;
 

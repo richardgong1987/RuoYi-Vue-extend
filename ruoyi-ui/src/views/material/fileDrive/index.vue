@@ -161,7 +161,7 @@ export default {
 
     return {
       userId: 1,
-      userName:'',
+      userName: '',
       headers: {Authorization: "Bearer " + getToken()},
       uploadUrl: `${location.protocol}//${location.hostname}:8080/upload`,
       fileList: [],
@@ -308,23 +308,29 @@ export default {
         this.refreshTable = true;
       });
     },
-    handleSuccess({data}, fileList) {
+    handleSuccess:async function({data}, fileList) {
       var params = {userId: this.userId, createBy: this.userName, menuId: this.form.menuId, ...data};
-      addMapping(params);
+      await addMapping(params);
+      this.getMapplist();
     },
 
     handleRemove({id}, fileList) {
-      delMapping(id);
+      if (id) {
+        delMapping(id);
+      }
+    },
+    getMapplist() {
+      listMapping({userId: this.userId, menuId: this.form.menuId, createBy: this.userName}).then(response => {
+        this.fileList = response.data;
+      });
     },
     /** 上传文件按钮操作 */
     handleUpdate: async function (row) {
       this.reset();
       this.getTreeselect();
-      listMapping({userId: this.userId, menuId: row.menuId, createBy: this.userName}).then(response => {
-        this.fileList = response.data;
-      });
       getFileDrive(row.menuId).then(response => {
         this.form = response.data;
+        this.getMapplist();
         this.open = true;
         this.title = "上传文件文件";
       });
