@@ -39,12 +39,3 @@ services:
       - ruoyi-gateway
     links:
       - ruoyi-gateway
-  ruoyi-modules-education-admin:
-    container_name: ruoyi-modules-education-admin
-    build:
-      context: ruoyi-vue/modules-education/education-admin
-      dockerfile: dockerfile
-    ports:
-      - "9207:9207"
-    volumes:
-      - ./ruoyi/uploadPath:/home/ruoyi/uploadPath

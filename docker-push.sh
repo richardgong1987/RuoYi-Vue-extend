@@ -10,7 +10,7 @@ cd ../docker_pro/ruoyi-vue
 
 sh deploy-dev.sh
 
-cd ../../../nginx
+cd ../nginx
 
 sh deploy-dev.sh
 
