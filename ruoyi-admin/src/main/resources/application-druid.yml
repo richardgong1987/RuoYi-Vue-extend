@@ -10,7 +10,7 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql://localhost:3306/ry_vue_extend?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                url: jdbc:mysql://172.20.109.131:3306/ry_vue_extend?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: password
             # 从库数据源
@@ -60,6 +60,27 @@ spring:
                     config:
                         multi-statement-allow: true
 
+    redis:
+      # 地址
+      host: 172.20.109.131
+      # 端口，默认为6379
+      port: 6379
+      # 数据库索引
+      database: 0
+      # 密码
+      password:
+      # 连接超时时间
+      timeout: 10s
+      lettuce:
+        pool:
+          # 连接池中的最小空闲连接
+          min-idle: 0
+          # 连接池中的最大空闲连接
+          max-idle: 8
+          # 连接池的最大数据库连接数
+          max-active: 8
+          # #连接池最大阻塞等待时间（使用负值表示没有限制）
+          max-wait: -1ms
 
 #    *****************file******************
     servlet:
@@ -71,8 +92,8 @@ spring:
 
 # Minio配置
 minio:
-  url: http://localhost:9000
-  consoleUrl: http://localhost:9001
+  url: http://172.20.109.131:9000
+  consoleUrl: http://172.20.109.131:9001
   accessKey: admin
   secretKey: password
   bucketName: education
