@@ -280,9 +280,6 @@ export default {
         studentsNum: [
           {required: true, message: "学生数量不能为空", trigger: "blur"}
         ],
-        headteacher: [
-          {required: true, message: "班主任不能为空", trigger: "change"}
-        ],
         phone: [
           {
             pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,

@@ -145,7 +145,7 @@
       <el-table-column label="讲义管理" align="center" class-name="small-padding ">
         <template slot-scope="scope">
           <div class="padding-content">
-            <el-button @click="toHandOut(scope.row.id,scope.row.name)"
+            <el-button @click="toHandOut(scope.row.id,scope.row.name,scope.row)"
                        size="small"
                        type="primary"
                        icon="el-icon-edit" v-hasPermi="['teachers:teacherInfos:edit']">讲义管理
@@ -384,8 +384,8 @@ export default {
     this.getList();
   },
   methods: {
-    toHandOut: function (userId,name) {
-      this.$router.push({path: `/teachers/teacherHandouts/${userId}`});
+    toHandOut: function (userId,name,row) {
+      this.$router.push({path: `/teachers/teacherHandouts/${userId}/${name}`});
       cache.session.set("teacherName", name);
     },
     toTeacherClasses: function (teacherId,name) {

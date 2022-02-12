@@ -184,8 +184,8 @@ export const dynamicRoutes = [
     permissions: ['teachers:teacherInfos:edit'],
     children: [
       {
-        path: 'teacherHandouts/:teacherId',
-        component: () => import(/* webpackChunkName: "file" */ '_v/File.vue'),
+        path: 'teacherHandouts/:teacherId/:teachName',
+        component: () => import( '_v/material/fileDrive'),
         name: 'teachersTeacherHandouts',
         meta: { title: '老师讲义管理', activeMenu: '/teachers/teacherInfos' }
       }

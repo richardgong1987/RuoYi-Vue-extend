@@ -161,6 +161,7 @@ export default {
 
     return {
       userId: 1,
+      userName:'',
       headers: {Authorization: "Bearer " + getToken()},
       uploadUrl: `${location.protocol}//${location.hostname}:8080/upload`,
       fileList: [],
@@ -203,6 +204,7 @@ export default {
   },
   created() {
     this.getList();
+
   },
   methods: {
     submitUpload() {
@@ -219,7 +221,14 @@ export default {
     /** 查询文件列表 */
     getList: async function () {
       this.loading = true;
-      let {data: {userId, userName}} = await getUserProfile();
+
+      var userId = this.$route.params && this.$route.params.teacherId;
+      var userName = this.$route.params && this.$route.params.teachName;
+      console.log(userName)
+      if (!userName) {
+        var {data: {userId, userName}} = await getUserProfile();
+      }
+      console.log(userName);
       this.userId = userId;
       this.userName = userName;
       this.queryParams.createBy = userName;

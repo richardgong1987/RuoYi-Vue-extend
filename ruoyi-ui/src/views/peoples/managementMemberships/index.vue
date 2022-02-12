@@ -332,9 +332,6 @@ export default {
             trigger: "blur"
           }
         ],
-        classId: [
-          { required: true, message: "所属班级不能为空", trigger: "change" }
-        ],
       }
     };
   },
