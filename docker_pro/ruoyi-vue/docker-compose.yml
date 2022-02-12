@@ -1,0 +1,8 @@
+version: '3'
+services:
+  backend:
+    image: richardgong1987/docker_ruoyi-vue
+    container_name: ruoyi-vue
+    build: .
+    ports:
+      - "8080:8080"
