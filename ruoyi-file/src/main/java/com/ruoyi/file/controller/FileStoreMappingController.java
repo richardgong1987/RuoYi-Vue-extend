@@ -8,8 +8,9 @@ import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.file.domain.FileStoreMapping;
 import com.ruoyi.file.service.IFileStoreMappingService;
 import com.ruoyi.file.service.ISysFileService;
+import io.minio.Result;
+import io.minio.messages.Item;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +41,6 @@ public class FileStoreMappingController extends BaseController {
     /**
      * 获取文件关系详细信息
      */
-    @PreAuthorize("@ss.hasPermi('file:mapping:query')")
     @GetMapping(value = "/{id}")
     public AjaxResult getInfo(@PathVariable("id") Long id) {
         return AjaxResult.success(fileStoreMappingService.selectFileStoreMappingById(id));
@@ -49,7 +49,6 @@ public class FileStoreMappingController extends BaseController {
     /**
      * 新增文件关系
      */
-    @PreAuthorize("@ss.hasPermi('file:mapping:add')")
     @Log(title = "文件关系", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody FileStoreMapping fileStoreMapping) {
@@ -59,7 +58,6 @@ public class FileStoreMappingController extends BaseController {
     /**
      * 修改文件关系
      */
-    @PreAuthorize("@ss.hasPermi('file:mapping:edit')")
     @Log(title = "文件关系", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody FileStoreMapping fileStoreMapping) {
@@ -69,7 +67,6 @@ public class FileStoreMappingController extends BaseController {
     /**
      * 删除文件关系
      */
-    @PreAuthorize("@ss.hasPermi('file:mapping:remove')")
     @Log(title = "文件关系", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     @Transactional
@@ -84,7 +81,20 @@ public class FileStoreMappingController extends BaseController {
         int i = fileStoreMappingService.deleteFileStoreMappingByIds(ids);
         return toAjax(i);
     }
+
     @Autowired
     ISysFileService iSysFileService;
+
+    /**
+     * 删除文件关系
+     */
+    @Log(title = "文件关系", businessType = BusinessType.OTHER)
+    @GetMapping("/listObjects")
+    @Transactional
+    public AjaxResult listObjects(String userId, String relativePath) throws Exception {
+        var  results = iSysFileService.listFile(userId, relativePath);
+        return AjaxResult.success(results);
+    }
+
 
 }

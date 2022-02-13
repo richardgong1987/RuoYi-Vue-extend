@@ -383,7 +383,6 @@ export default {
           ...this.params
         }
       })
-      console.log("this.uploaderInstance.opts:", this.uploaderInstance.opts);
       file.uniqueIdentifier = md5
       file.resume()
       // 移除自定义状态

@@ -1,10 +1,12 @@
 package com.ruoyi.file.service;
 
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.uuid.IdUtils;
 import com.ruoyi.file.config.MinioConfig;
 import io.minio.*;
 import io.minio.errors.*;
+import io.minio.messages.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Minio 文件存储
@@ -49,6 +53,28 @@ public class MinioSysFileServiceImpl implements ISysFileService {
         var dir = Paths.get(relativePath).getParent().toString();
         var fileName = userId + "/" + dir + "/" + originalFilename;
         return uploadAction(file, fileName);
+    }
+
+    @Override
+    public Object listFile(String userId, String relativePath) throws Exception {
+        String bucketName = minioConfig.getBucketName();
+        if (StringUtils.isEmpty(relativePath)) {
+            relativePath = "/";
+        }
+        Iterable<Result<Item>> results = minioClient.listObjects(
+            ListObjectsArgs.builder()
+                .bucket(bucketName)
+                .prefix(userId + relativePath)
+                .build());
+        var objects = new ArrayList<>();
+        for (Result<Item> result : results) {
+            Item item = result.get();
+            HashMap<String, Object> stringObjectHashMap = new HashMap<>();
+            stringObjectHashMap.put("objectName", item.objectName());
+            stringObjectHashMap.put("isDir", item.isDir());
+            objects.add(stringObjectHashMap);
+        }
+        return objects;
     }
 
 

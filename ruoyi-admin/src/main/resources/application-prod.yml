@@ -6,7 +6,7 @@ spring:
       druid:
           # 主库数据源
           master:
-              url: jdbc:mysql://localhost:3306/ry_vue_extend?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+              url: jdbc:mysql://172.20.109.131:3306/ry_vue_extend?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
               username: root
               password: password
           # 从库数据源
@@ -58,7 +58,7 @@ spring:
 
   redis:
     # 地址
-    host: localhost
+    host: 172.20.109.131
     # 端口，默认为6379
     port: 6379
     # 数据库索引
@@ -88,8 +88,8 @@ spring:
 
 # Minio配置
 minio:
-  url: http://localhost:9000
-  consoleUrl: http://localhost:9001
+  url: http://172.20.109.131:9000
+  consoleUrl: http://172.20.109.131:9001
   accessKey: admin
   secretKey: password
   bucketName: education

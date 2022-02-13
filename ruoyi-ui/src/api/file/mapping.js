@@ -8,6 +8,13 @@ export function listMapping(query) {
     params: query
   })
 }
+export function listObjects(query) {
+  return request({
+    url: '/file/mapping/listObjects',
+    method: 'get',
+    params: query
+  })
+}
 
 // 查询文件关系详细
 export function getMapping(id) {

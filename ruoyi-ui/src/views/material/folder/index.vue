@@ -1,30 +1,58 @@
 <template>
   <div class="app-container">
-    <el-dropdown-item @click.native="handleUploadFileBtnClick(2)"
-    >上传文件夹</el-dropdown-item
+    <el-button type="primary" @click.native="handleUploadFileBtnClick(2)"
+    >上传文件夹
+    </el-button
     >
+
+    <div>
+      <div style="padding: 15px;">
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item v-for="v in filePathHistory">
+            <span @click="goHistoryDir(v)"> {{ v }}</span>
+          </el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <el-table
+        :data="fileList"
+        style="width: 100%">
+        <el-table-column
+          label="文件名称">
+          <template v-slot="scope">
+            <div @click="moreObject(scope.row.objectName)" v-if="scope.row.isDir"><i
+              style="font-weight: bold;font-size: 25px;" class="el-icon-folder"> </i>
+              {{ getObjectNormalName(scope.row.objectName, true) }}
+            </div>
+            <div v-else>{{ getObjectNormalName(scope.row.objectName, false) }}</div>
+          </template>
+        </el-table-column>
+
+      </el-table>
+
+    </div>
+
   </div>
 </template>
 
 
 <script>
-import { addFileDrive, delFileDrive, getFileDrive, listFileDrive, updateFileDrive } from '@/api/material/fileDrive'
-import { addMapping, delMapping, listMapping } from '@/api/file/mapping'
+import {listObjects} from '@/api/file/mapping'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
-import { getToken } from '@/utils/auth'
-import { getUserProfile } from '@/api/system/user'
+import {getToken} from '@/utils/auth'
+import {getUserProfile} from '@/api/system/user'
 
 export default {
   name: 'FileDrive',
   dicts: ['sys_show_hide', 'sys_normal_disable'],
   data() {
     return {
+      filePathHistory: [],
       files: [],
       postAction: process.env.VUE_APP_BASE_API + '/upload', // 上传的图片服务器地址
 
       userId: 1,
       userName: '',
-      headers: { Authorization: 'Bearer ' + getToken() },
+      headers: {Authorization: 'Bearer ' + getToken()},
       uploadUrl: `${location.protocol}//${location.hostname}:8080/upload`,
       fileList: [],
       // 遮罩层
@@ -53,13 +81,13 @@ export default {
       // 表单校验
       rules: {
         menuName: [
-          { required: true, message: '文件名称不能为空', trigger: 'blur' }
+          {required: true, message: '文件名称不能为空', trigger: 'blur'}
         ],
         orderNum: [
-          { required: true, message: '文件顺序不能为空', trigger: 'blur' }
+          {required: true, message: '文件顺序不能为空', trigger: 'blur'}
         ],
         path: [
-          { required: true, message: '路由地址不能为空', trigger: 'blur' }
+          {required: true, message: '路由地址不能为空', trigger: 'blur'}
         ]
       }
     }
@@ -84,18 +112,44 @@ export default {
           isDir: 0
         }
       }
-    },
+    }
   },
   methods: {
+    goHistoryDir(dir) {
+      let relativePath = this.queryParams.relativePath;
+      relativePath.search(dir);
+      this.queryParams.relativePath = relativePath.slice(0, relativePath.search(dir));
+      this.getListObject();
+    },
+    getObjectNormalName(objectName, isDir) {
+      if (isDir) {
+        var split = objectName.split('/');
+        split.pop();
+        return split.pop();
+      }
+      return objectName.split('/').pop();
+    },
+    moreObject: function (objectName) {
+      this.queryParams.relativePath = objectName;
+      this.getListObject();
+    },
+    getListObject() {
+      this.filePathHistory = this.queryParams.relativePath.split('/').filter(v => v);
+      listObjects(this.queryParams).then(response => {
+        let data = response.data;
+        for (let datum of data) {
+          datum.objectName = datum.objectName.replace(/^\d+?\//g, "/");
+        }
+        this.fileList = data;
+        this.loading = false
+      });
+    },
     handleUploadFileBtnClick(uploadWay) {
       this.$uploadFile({
         params: this.uploadFileParams,
         uploadWay
       }).then((res) => {
-        if (res) {
-          this.$emit('getTableDataByType')
-          this.$store.dispatch('showStorage')
-        }
+
       })
     },
 
@@ -107,48 +161,21 @@ export default {
       this.form.icon = name
     },
     /** 查询文件列表 */
-    getList: async function() {
+    getList: async function () {
       this.loading = true
 
       var userId = this.$route.params && this.$route.params.teacherId
       var userName = this.$route.params && this.$route.params.teachName
-      console.log(userName)
       if (!userName) {
-        var { data: { userId, userName } } = await getUserProfile()
+        var {data: {userId, userName}} = await getUserProfile()
       }
-      console.log(userName)
       this.userId = userId
       this.userName = userName
       this.queryParams.createBy = userName
-      listFileDrive(this.queryParams).then(response => {
-        this.menuList = this.handleTree(response.data, 'menuId')
-        this.loading = false
-      })
-    },
-    /** 转换文件数据结构 */
-    normalizer(node) {
-      if (node.children && !node.children.length) {
-        delete node.children
-      }
-      return {
-        id: node.menuId,
-        label: node.menuName,
-        children: node.children
-      }
-    },
-    /** 查询文件下拉树结构 */
-    getTreeselect() {
-      listFileDrive().then(response => {
-        this.menuOptions = []
-        const menu = { menuId: 0, menuName: '主类目', children: [] }
-        menu.children = this.handleTree(response.data, 'menuId')
-        this.menuOptions.push(menu)
-      })
-    },
-    // 取消按钮
-    cancel() {
-      this.open = false
-      this.reset()
+      this.queryParams.userId = userId
+      this.queryParams.relativePath = ""
+      this.getListObject();
+
     },
     // 表单重置
     reset() {
@@ -167,93 +194,6 @@ export default {
       }
       this.resetForm('form')
     },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.getList()
-    },
-    /** 重置按钮操作 */
-    resetQuery() {
-      this.resetForm('queryForm')
-      this.handleQuery()
-    },
-    /** 新增目录按钮操作 */
-    handleAdd(row) {
-      this.reset()
-      this.getTreeselect()
-      if (row != null && row.menuId) {
-        this.form.parentId = row.menuId
-      } else {
-        this.form.parentId = 0
-      }
-      this.open = true
-      this.title = '添加文件'
-    },
-    /** 展开/折叠操作 */
-    toggleExpandAll() {
-      this.refreshTable = false
-      this.isExpandAll = !this.isExpandAll
-      this.$nextTick(() => {
-        this.refreshTable = true
-      })
-    },
-    handleSuccess: async function({ data }, fileList) {
-      var params = { userId: this.userId, createBy: this.userName, menuId: this.form.menuId, ...data }
-      await addMapping(params)
-      this.getMapplist()
-    },
-
-    handleRemove({ id }, fileList) {
-      if (id) {
-        delMapping(id)
-      }
-    },
-    getMapplist() {
-      listMapping({ userId: this.userId, menuId: this.form.menuId, createBy: this.userName }).then(response => {
-        this.fileList = response.data
-      })
-    },
-    /** 上传文件按钮操作 */
-    handleUpdate: async function(row) {
-      this.reset()
-      this.getTreeselect()
-      getFileDrive(row.menuId).then(response => {
-        this.form = response.data
-        this.getMapplist()
-        this.open = true
-        this.title = '上传文件文件'
-      })
-    },
-    /** 提交按钮 */
-    submitForm: function() {
-      this.$refs['form'].validate(valid => {
-        if (valid) {
-          if (this.form.menuId != undefined) {
-            this.submitUpload()
-            updateFileDrive(this.form).then(response => {
-              this.$modal.msgSuccess('上传文件成功')
-              this.open = false
-              this.getList()
-            })
-          } else {
-            addFileDrive(this.form).then(response => {
-              this.$modal.msgSuccess('新增目录成功')
-              this.open = false
-              this.getList()
-            })
-          }
-        }
-      })
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      this.$modal.confirm('是否确认删除名称为"' + row.menuName + '"的数据项？').then(function() {
-        return delFileDrive(row.menuId)
-      }).then(() => {
-        this.getList()
-        this.$modal.msgSuccess('删除成功')
-      }).catch(() => {
-      })
-    }
   }
 }
 </script>
