@@ -96,5 +96,15 @@ public class FileStoreMappingController extends BaseController {
         return AjaxResult.success(results);
     }
 
+    /**
+     * 删除文件关系
+     */
+    @Log(title = "文件关系", businessType = BusinessType.OTHER)
+    @DeleteMapping ("/listObjects/delete")
+    @Transactional
+    public AjaxResult listObjectsDelete(String userId, String relativePath) throws Exception {
+        var  results = iSysFileService.deleteFileList(userId, relativePath);
+        return AjaxResult.success(results);
+    }
 
 }

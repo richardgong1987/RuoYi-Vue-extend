@@ -26,4 +26,5 @@ public interface ISysFileService {
     public String uploadFile(MultipartFile file) throws Exception;
 
     public String deleteFile(String url) throws Exception;
+    public Object deleteFileList(String userId, String relativePath) throws Exception;
 }

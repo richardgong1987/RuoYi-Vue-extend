@@ -15,6 +15,13 @@ export function listObjects(query) {
     params: query
   })
 }
+export function deleteListObjects(query) {
+  return request({
+    url: '/file/mapping/listObjects/delete',
+    method: 'delete',
+    params: query
+  })
+}
 
 // 查询文件关系详细
 export function getMapping(id) {

@@ -26,7 +26,12 @@
             <div v-else>{{ getObjectNormalName(scope.row.objectName, false) }}</div>
           </template>
         </el-table-column>
-
+        <el-table-column
+          label="操作">
+          <template v-slot="scope">
+            <el-button @click="deleteFileList(scope.row.objectName)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
 
     </div>
@@ -36,7 +41,7 @@
 
 
 <script>
-import {listObjects} from '@/api/file/mapping'
+import {deleteListObjects, listObjects} from '@/api/file/mapping'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import {getToken} from '@/utils/auth'
 import {getUserProfile} from '@/api/system/user'
@@ -121,6 +126,11 @@ export default {
       this.queryParams.relativePath = relativePath.slice(0, relativePath.search(dir));
       this.getListObject();
     },
+    deleteFileList:async function(objectName) {
+      this.queryParams.relativePath = objectName;
+      await deleteListObjects(this.queryParams);
+      await this.getListObject();
+    },
     getObjectNormalName(objectName, isDir) {
       if (isDir) {
         var split = objectName.split('/');
@@ -149,7 +159,7 @@ export default {
         params: this.uploadFileParams,
         uploadWay
       }).then((res) => {
-
+         this.getListObject();
       })
     },
 
