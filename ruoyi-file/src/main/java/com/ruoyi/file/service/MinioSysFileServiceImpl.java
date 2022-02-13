@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -43,9 +44,10 @@ public class MinioSysFileServiceImpl implements ISysFileService {
      * @throws Exception
      */
     @Override
-    public String uploadFile(MultipartFile file, String userId) throws Exception {
+    public String uploadFile(MultipartFile file, String userId, String relativePath) throws Exception {
         var originalFilename = file.getOriginalFilename();
-        var fileName = userId + "/" + originalFilename;
+        var dir = Paths.get(relativePath).getParent().toString();
+        var fileName = userId + "/" + dir + "/" + originalFilename;
         return uploadAction(file, fileName);
     }
 

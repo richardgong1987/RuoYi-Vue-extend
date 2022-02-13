@@ -79,9 +79,25 @@ public class SysFileController {
             log.error("上传文件失败", e);
             return R.fail(e.getMessage());
         }
+    }    /**
+     * 文件上传请求
+     */
+    @PostMapping("/uploadWithUserId")
+    public R<FileFile> uploadWithUserId(MultipartFile file, String userId,String relativePath) {
+        try {
+            // 上传并返回访问地址
+            String url = sysFileService.uploadFile(file, userId, relativePath);
+            FileFile sysFile = new FileFile();
+            sysFile.setName(FileUtils.getName(url));
+            sysFile.setUrl(url);
+            return R.ok(sysFile);
+        } catch (Exception e) {
+            log.error("上传文件失败", e);
+            return R.fail(e.getMessage());
+        }
     }
 
-    @GetMapping("/upload")
+    @GetMapping("/uploadWithUserId")
     public AjaxResult uploadGet() {
         UploadFileVo uploadFileVo = new UploadFileVo();
         return AjaxResult.success(uploadFileVo);

@@ -126,16 +126,18 @@
 import store from '@/store/index'
 import SparkMD5 from 'spark-md5'
 import {getToken} from "@/utils/auth";
-import {getUserId} from "@/utils/ruoyi";
+import {getUserProfile} from "@/api/system/user";
 
 export default {
   data() {
-    var userId = getUserId();
+
     return {
       userId: null,
+      VUE_APP_BASE_API:`${process.env.VUE_APP_BASE_API}/uploadWithUserId?userId=`,
+      target:``,
       // 上传组件配置项
       options: {
-        target: `${process.env.VUE_APP_BASE_API}/upload?userId=${userId}`, // 上传文件-目标 URL
+        target: '', // 上传文件-目标 URL
         chunkSize: 1024 * 1024, //  每个分片的大小
         fileParameterName: 'file', //  上传文件时文件的参数名，默认 file
         maxChunkRetries: 3, //  并发上传数，默认 3
@@ -143,8 +145,8 @@ export default {
         // 服务器分片校验函数，秒传及断点续传基础
         checkChunkUploadedByResponse: function (chunk, message) {
           let objMessage = JSON.parse(message)
-            let data = objMessage.data
-            return (data.uploaded || []).indexOf(chunk.offset + 1) >= 0
+          let data = objMessage.data;
+          return (data.uploaded || []).indexOf(chunk.offset + 1) >= 0
         },
         headers: {'Authorization': 'Bearer ' + getToken()},
         query() {
@@ -182,12 +184,24 @@ export default {
       return store.getters.remainderStorageValue
     }
   },
+  created() {
+    this.getUserId();
+  },
   methods: {
+    getUserId: async function () {
+      var userId = this.$route && this.$route.params && this.$route.params.teacherId;
+      var userName = this.$route && this.$route.params && this.$route.params.teachName;
+      if (!userName) {
+        var {data: {userId, userName}} = await getUserProfile();
+      }
+      this.target = this.VUE_APP_BASE_API + userId;
+      return userId;
+    },
     /**
      * 上传组件预处理
      */
     handlePrepareUpload() {
-      this.options.headers.token = this.getCookies(this.$config.tokenKeyName)
+      this.options.headers.Authorization = 'Bearer ' + getToken()
       switch (this.uploadWay) {
         case 1: {
           this.$refs.uploadBtn.$el.click()
@@ -286,7 +300,7 @@ export default {
       }
 
       let result = JSON.parse(response)
-      if (result.code==200) {
+      if (result.code == 200) {
         this.$message.success(`${file.name} - 上传完毕`)
         file.statusStr = ''
         this.callback(true)
@@ -362,11 +376,14 @@ export default {
      */
     calculateFileMD5End(md5, file) {
       // 将自定义参数直接加载uploader实例的opts上
+      this.uploaderInstance.opts.target = this.target;
+
       Object.assign(this.uploaderInstance.opts, {
         query: {
           ...this.params
         }
       })
+      console.log("this.uploaderInstance.opts:", this.uploaderInstance.opts);
       file.uniqueIdentifier = md5
       file.resume()
       // 移除自定义状态
