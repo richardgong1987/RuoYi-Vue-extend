@@ -147,35 +147,41 @@ menuId = 3030
 icon = 'dengji'
 path = 'fileDrive'
 
+#------------------------资料管理.上传文件(二级菜单)---------------------------
+['资料管理'.'文件夹管理']
+menuId = 3031
+icon = 'dengji'
+path = 'folder'
+
 #-----------资料管理上传文件 按钮权限------------
 ['资料管理'.'文件管理'.'按钮权限'.'查询']
-menuId = 3031
+menuId = 3032
 perms = 'query'
 
 ['资料管理'.'文件管理'.'按钮权限'.'添加']
-menuId = 3032
+menuId = 3033
 perms = 'add'
 
 ['资料管理'.'文件管理'.'按钮权限'.'编辑']
-menuId = 3033
+menuId = 3034
 perms = 'edit'
 
 ['资料管理'.'文件管理'.'按钮权限'.'删除']
-menuId = 3034
+menuId = 3035
 perms = 'remove'
 
 ['资料管理'.'文件管理'.'按钮权限'.'导入']
-menuId = 3035
+menuId = 3036
 perms = 'import'
 
 ['资料管理'.'文件管理'.'按钮权限'.'导出']
-menuId = 3036
+menuId = 3037
 perms = 'export'
 
 
 #------------------------资料管理(目录)---------------------------
 ['老师管理']
-menuId = 3037
+menuId = 3038
 icon = 'example'
 path = 'teachers'
 
@@ -183,32 +189,32 @@ path = 'teachers'
 
 #------------------------老师管理.老师信息(二级菜单)---------------------------
 ['老师管理'.'老师信息']
-menuId = 3038
+menuId = 3039
 icon = 'article'
 path = 'teacherInfos'
 
 #-----------老师管理老师信息 按钮权限------------
 ['老师管理'.'老师信息'.'按钮权限'.'查询']
-menuId = 3039
+menuId = 3040
 perms = 'query'
 
 ['老师管理'.'老师信息'.'按钮权限'.'添加']
-menuId = 3040
+menuId = 3041
 perms = 'add'
 
 ['老师管理'.'老师信息'.'按钮权限'.'编辑']
-menuId = 3041
+menuId = 3042
 perms = 'edit'
 
 ['老师管理'.'老师信息'.'按钮权限'.'删除']
-menuId = 3042
+menuId = 3043
 perms = 'remove'
 
 ['老师管理'.'老师信息'.'按钮权限'.'导入']
-menuId = 3043
+menuId = 3044
 perms = 'import'
 
 ['老师管理'.'老师信息'.'按钮权限'.'导出']
-menuId = 3044
+menuId = 3045
 perms = 'export'
 
