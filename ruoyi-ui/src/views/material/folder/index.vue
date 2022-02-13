@@ -98,9 +98,6 @@ export default {
         }
       })
     },
-    submitUpload() {
-      this.$refs.upload.submit()
-    },
 
     handlePreview(file) {
       console.log(file)

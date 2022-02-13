@@ -6,6 +6,11 @@ import Element from 'element-ui'
 import './assets/styles/element-variables.scss'
 
 import './assets/styles/element-variables.scss'
+import '_a/styles/css/base.css'
+import '_a/styles/css/element-cover.css'
+import '_a/styles/iconfont/iconfont.css'
+import '_a/styles/elementCover.scss'
+import '_a/styles/mediaScreenXs.scss'
 
 import 'element-ui/lib/theme-chalk/index.css'
 
