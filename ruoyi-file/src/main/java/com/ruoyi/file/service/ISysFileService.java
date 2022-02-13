@@ -16,6 +16,7 @@ public interface ISysFileService
      * @return 访问地址
      * @throws Exception
      */
+    public String uploadFile(MultipartFile file,String userId) throws Exception;
     public String uploadFile(MultipartFile file) throws Exception;
     public String deleteFile(String url) throws Exception;
 }

@@ -24,20 +24,20 @@ export default {
 		 * 获取文件已占用的存储空间
 		 */
 		showStorage(context) {
-			return getStorage({userId:getUserId()}).then((res) => {
-				if (res.success) {
-					context.commit(
-						'setStorageValue',
-						res.data ? Number(res.data.storageSize) : 0
-					)
-					context.commit(
-						'setTotalStorageValue',
-						res.data ? Number(res.data.totalStorageSize) : 0
-					)
-				} else {
-					this.$message.error(res.message)
-				}
-			})
+			// return getStorage({userId:getUserId()}).then((res) => {
+			// 	if (res.success) {
+			// 		context.commit(
+			// 			'setStorageValue',
+			// 			res.data ? Number(res.data.storageSize) : 0
+			// 		)
+			// 		context.commit(
+			// 			'setTotalStorageValue',
+			// 			res.data ? Number(res.data.totalStorageSize) : 0
+			// 		)
+			// 	} else {
+			// 		this.$message.error(res.message)
+			// 	}
+			// })
 		}
 	}
 }

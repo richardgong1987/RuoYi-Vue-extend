@@ -334,7 +334,6 @@ export default {
 			}).then((res) => {
 				if (res) {
 					this.$emit('getTableDataByType')
-					this.$store.dispatch('showStorage')
 				}
 			})
 		},
@@ -351,7 +350,6 @@ export default {
 			}).then((res) => {
 				if (res === 'confirm') {
 					this.$emit('getTableDataByType')
-					this.$store.dispatch('showStorage')
 				}
 			})
 		},

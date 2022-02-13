@@ -1,6 +1,8 @@
 package com.ruoyi.file.controller;
 
+import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.file.domain.R;
+import com.ruoyi.file.domain.UploadFileVo;
 import com.ruoyi.file.service.ISysFileService;
 import com.ruoyi.file.utils.FileUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -8,6 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,8 +26,8 @@ public class SysFileController {
 
     @Autowired
     private ISysFileService sysFileService;
-    public static class FileFile
-    {
+
+    public static class FileFile {
         /**
          * 文件名称
          */
@@ -35,23 +38,19 @@ public class SysFileController {
          */
         private String url;
 
-        public String getName()
-        {
+        public String getName() {
             return name;
         }
 
-        public void setName(String name)
-        {
+        public void setName(String name) {
             this.name = name;
         }
 
-        public String getUrl()
-        {
+        public String getUrl() {
             return url;
         }
 
-        public void setUrl(String url)
-        {
+        public void setUrl(String url) {
             this.url = url;
         }
 
@@ -63,6 +62,7 @@ public class SysFileController {
                 .toString();
         }
     }
+
     /**
      * 文件上传请求
      */
@@ -79,5 +79,11 @@ public class SysFileController {
             log.error("上传文件失败", e);
             return R.fail(e.getMessage());
         }
+    }
+
+    @GetMapping("/upload")
+    public AjaxResult uploadGet() {
+        UploadFileVo uploadFileVo = new UploadFileVo();
+        return AjaxResult.success(uploadFileVo);
     }
 }

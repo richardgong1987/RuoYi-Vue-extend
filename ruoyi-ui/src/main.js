@@ -7,11 +7,6 @@ import './assets/styles/element-variables.scss'
 
 import './assets/styles/element-variables.scss'
 
-import '_a/styles/css/base.css'
-import '_a/styles/css/element-cover.css'
-import '_a/styles/iconfont/iconfont.css'
-import '_a/styles/elementCover.scss'
-import '_a/styles/mediaScreenXs.scss'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import globalFunction from '@/libs/globalFunction'
@@ -60,8 +55,6 @@ import Pagination from "@/components/Pagination";
 import RightToolbar from "@/components/RightToolbar"
 // 富文本组件
 import Editor from "@/components/Editor"
-// 文件上传组件
-import FileUpload from "@/components/FileUpload"
 // 图片上传组件
 import ImageUpload from "@/components/ImageUpload"
 // 图片预览组件
@@ -88,7 +81,6 @@ Vue.component('DictTag', DictTag)
 Vue.component('Pagination', Pagination)
 Vue.component('RightToolbar', RightToolbar)
 Vue.component('Editor', Editor)
-Vue.component('FileUpload', FileUpload)
 Vue.component('ImageUpload', ImageUpload)
 Vue.component('ImagePreview', ImagePreview)
 Vue.use(directive)

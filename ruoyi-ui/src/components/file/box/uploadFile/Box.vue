@@ -132,30 +132,21 @@ export default {
   data() {
     var userId = getUserId();
     return {
-      userId:null,
+      userId: null,
       // 上传组件配置项
       options: {
-        target: `${this.$config.baseContext}/file/filetransfer/uploadfile?userId=${userId}`, // 上传文件-目标 URL
+        target: `${process.env.VUE_APP_BASE_API}/upload?userId=${userId}`, // 上传文件-目标 URL
         chunkSize: 1024 * 1024, //  每个分片的大小
         fileParameterName: 'file', //  上传文件时文件的参数名，默认 file
         maxChunkRetries: 3, //  并发上传数，默认 3
         testChunks: true, //  是否开启分片已存在于服务器的校验
         // 服务器分片校验函数，秒传及断点续传基础
-        checkChunkUploadedByResponse: function(chunk, message) {
+        checkChunkUploadedByResponse: function (chunk, message) {
           let objMessage = JSON.parse(message)
-          if (objMessage.success) {
             let data = objMessage.data
-            if (data.skipUpload) {
-              // 分片已存在于服务器中
-              return true
-            }
             return (data.uploaded || []).indexOf(chunk.offset + 1) >= 0
-          } else {
-            console.log(objMessage.message)
-            return true
-          }
         },
-        headers: { 'Authorization': 'Bearer ' + getToken() },
+        headers: {'Authorization': 'Bearer ' + getToken()},
         query() {
         }
       },
@@ -246,7 +237,7 @@ export default {
       // 如果需要预览，可以执行下面代码
       let reader = new FileReader()
       let _this = this
-      reader.onload = function(event) {
+      reader.onload = function (event) {
         _this.pasteImg.src = event.target.result
       }
       reader.readAsDataURL(this.pasteImgObj)
@@ -273,22 +264,13 @@ export default {
         .reduce((pre, next) => {
           return pre + next
         }, 0)
-      if (this.remainderStorageValue < filesTotalSize) {
-        // 批量选择的文件超出剩余存储空间
-        this.$message.warning(
-          `剩余存储空间不足，请重新选择${files.length > 1 ? '批量' : ''}文件`
-        )
-        // https://github.com/simple-uploader/vue-uploader/blob/master/README_zh-CN.md#%E4%BA%8B%E4%BB%B6
-        files.ignored = true //  本次选择的文件过滤掉
-      } else {
-        // 批量或单个选择的文件未超出剩余存储空间，正常上传
-        files.forEach((file) => {
-          this.dropBoxShow = false
-          this.panelShow = true
-          this.collapse = false
-          this.computeMD5(file)
-        })
-      }
+      // 批量或单个选择的文件未超出剩余存储空间，正常上传
+      files.forEach((file) => {
+        this.dropBoxShow = false
+        this.panelShow = true
+        this.collapse = false
+        this.computeMD5(file)
+      })
     },
     /**
      * 文件上传成功 回调函数
@@ -304,7 +286,7 @@ export default {
       }
 
       let result = JSON.parse(response)
-      if (result.success) {
+      if (result.code==200) {
         this.$message.success(`${file.name} - 上传完毕`)
         file.statusStr = ''
         this.callback(true)
@@ -357,7 +339,7 @@ export default {
           this.calculateFileMD5End(md5, file)
         }
       }
-      fileReader.onerror = function() {
+      fileReader.onerror = function () {
         this.$notify({
           title: '错误',
           message: `文件${file.name}读取出错，请检查该文件`,
