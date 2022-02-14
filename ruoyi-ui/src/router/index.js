@@ -185,7 +185,7 @@ export const dynamicRoutes = [
     children: [
       {
         path: 'teacherHandouts/:teacherId/:teachName',
-        component: () => import( '_v/material/fileDrive'),
+        component: () => import( '_v/material/folder'),
         name: 'teachersTeacherHandouts',
         meta: { title: '老师讲义管理', activeMenu: '/teachers/teacherInfos' }
       }

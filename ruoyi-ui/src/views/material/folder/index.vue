@@ -176,7 +176,7 @@ export default {
 
       var userId = this.$route.params && this.$route.params.teacherId
       var userName = this.$route.params && this.$route.params.teachName
-      if (!userName) {
+      if (!userId) {
         var {data: {userId, userName}} = await getUserProfile()
       }
       this.userId = userId
