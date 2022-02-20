@@ -11,6 +11,9 @@ export function listMapping(query) {
 export function listObjects(query) {
   return request({
     url: '/file/mapping/listObjects',
+    headers: {
+      isToken: false
+    },
     method: 'get',
     params: query
   })

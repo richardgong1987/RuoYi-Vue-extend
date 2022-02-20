@@ -6,7 +6,6 @@ import com.ruoyi.common.utils.uuid.IdUtils;
 import com.ruoyi.file.config.MinioConfig;
 import io.minio.*;
 import io.minio.errors.*;
-import io.minio.messages.DeleteObject;
 import io.minio.messages.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -20,8 +19,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Minio 文件存储
@@ -77,28 +74,7 @@ public class MinioSysFileServiceImpl implements ISysFileService {
             stringObjectHashMap.put("isDir", item.isDir());
             objects.add(stringObjectHashMap);
         }
-//        List<DeleteObject> deleteObjects = new LinkedList<>();
-//        deleteObjects.add(new DeleteObject("my-objectname1"));
-//        deleteObjects.add(new DeleteObject("my-objectname2"));
-//        deleteObjects.add(new DeleteObject("my-objectname3"));
-//
-//        RemoveObjectsArgs build = RemoveObjectsArgs.builder().bucket(bucketName).objects(deleteObjects).build();
 
-        {
-            Iterable<Result<Item>> results2 = minioClient.listObjects(
-                ListObjectsArgs.builder()
-                    .bucket(bucketName)
-                    .prefix(userId + relativePath).recursive(true)
-                    .build());
-            var objects2 = new ArrayList<>();
-            for (Result<Item> result : results2) {
-                Item item = result.get();
-                HashMap<String, Object> stringObjectHashMap = new HashMap<>();
-                stringObjectHashMap.put("objectName", item.objectName());
-                stringObjectHashMap.put("isDir", item.isDir());
-                objects2.add(stringObjectHashMap);
-            }
-        }
         return objects;
     }
 

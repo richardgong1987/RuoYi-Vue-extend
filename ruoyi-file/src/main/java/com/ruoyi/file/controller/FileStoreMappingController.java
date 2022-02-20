@@ -85,12 +85,7 @@ public class FileStoreMappingController extends BaseController {
     @Autowired
     ISysFileService iSysFileService;
 
-    /**
-     * 删除文件关系
-     */
-    @Log(title = "文件关系", businessType = BusinessType.OTHER)
     @GetMapping("/listObjects")
-    @Transactional
     public AjaxResult listObjects(String userId, String relativePath) throws Exception {
         var  results = iSysFileService.listFile(userId, relativePath);
         return AjaxResult.success(results);
@@ -99,9 +94,7 @@ public class FileStoreMappingController extends BaseController {
     /**
      * 删除文件关系
      */
-    @Log(title = "文件关系", businessType = BusinessType.OTHER)
     @DeleteMapping ("/listObjects/delete")
-    @Transactional
     public AjaxResult listObjectsDelete(String userId, String relativePath) throws Exception {
         var  results = iSysFileService.deleteFileList(userId, relativePath);
         return AjaxResult.success(results);
