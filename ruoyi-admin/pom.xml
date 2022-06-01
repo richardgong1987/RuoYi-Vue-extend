@@ -60,14 +60,10 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-file</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>educationadmin</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.ruoyi</groupId>-->
+<!--            <artifactId>ruoyi-file</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

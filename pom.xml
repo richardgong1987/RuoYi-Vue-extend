@@ -206,16 +206,11 @@
                 <version>1.18.22</version>
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-file</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>educationadmin</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.ruoyi</groupId>-->
+<!--                <artifactId>ruoyi-file</artifactId>-->
+<!--                <version>${ruoyi.version}</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
