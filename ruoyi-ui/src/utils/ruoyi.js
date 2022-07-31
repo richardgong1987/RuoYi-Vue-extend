@@ -1,4 +1,4 @@
-﻿
+
 
 /**
  * 通用js方法封装处理
@@ -207,10 +207,10 @@ export function tansParams(params) {
   for (const propName of Object.keys(params)) {
     const value = params[propName];
     var part = encodeURIComponent(propName) + "=";
-    if (value !== null && typeof (value) !== "undefined") {
+    if (value !== null && value !== "" && typeof (value) !== "undefined") {
       if (typeof value === 'object') {
         for (const key of Object.keys(value)) {
-          if (value[key] !== null && typeof (value[key]) !== 'undefined') {
+          if (value[key] !== null && value !== "" && typeof (value[key]) !== 'undefined') {
             let params = propName + '[' + key + ']';
             var subPart = encodeURIComponent(params) + "=";
             result += subPart + encodeURIComponent(value[key]) + "&";
@@ -233,15 +233,4 @@ export async function blobValidate(data) {
   } catch (error) {
     return true;
   }
-}
-
-export function getUserId(){
-  let userId = location.pathname.split('/').pop();
-  if (/^\d+$/.test(userId)) {
-    return  userId;
-  }
-  return '';
-}
-export function deepCopyJson(obj){
-  return JSON.parse(JSON.stringify(obj));
 }
