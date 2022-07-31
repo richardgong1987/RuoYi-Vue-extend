@@ -55,17 +55,13 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        '@': resolve('src'),
-        _v: path.resolve(__dirname, './src/views'),
-        _c: path.resolve(__dirname, './src/components'),
-        _a: path.resolve(__dirname, './src/assets'),
-        _r: path.resolve(__dirname, './src/request'),
-        _public: path.resolve(__dirname, './public')
+        '@': resolve('src')
       }
     },
     plugins: [
       // http://doc.ruoyi.vip/ruoyi-vue/other/faq.html#使用gzip解压缩静态文件
       new CompressionPlugin({
+        cache: false,                   // 不启用文件缓存
         test: /\.(js|css|html)?$/i,     // 压缩文件格式
         filename: '[path].gz[query]',   // 压缩后的文件名
         algorithm: 'gzip',              // 使用gzip压缩
